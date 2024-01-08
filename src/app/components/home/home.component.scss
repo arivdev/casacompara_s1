@@ -1,0 +1,103 @@
+.dropdown-toggle::after {
+    display: none;
+}
+
+.d-flex-center{
+    display: flex;
+    align-items: center;
+}
+
+.flex-d-colum{
+    flex-direction: column;
+}
+
+.btn-filter{
+    background: #F8F8F8;
+    box-shadow: 0.5px 1px 2px 0px rgba(148, 148, 148, 0.25);
+    color: #6B6B6B;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.scroll-x{
+    width: 60em;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.text-secustm{color: #BBBBBB;}
+.text-primcustm{ color: rgba(90, 136, 255);}
+.border-list{border-bottom: 2px solid rgba(196, 196, 196, 0.50);}
+.bg-light-g{background-color: #6D6D6D;}
+.bg-golden{background-color: #FFAA2C;}
+.dis-flex{display: flex !important;}
+.w-20{width: 20% !important;}
+.h-10{height: 10% !important;}
+.b-bottom-1{border-bottom: solid 1px #adb5bd;}
+.b-bottom-2{border-bottom: solid 2px #adb5bd;}
+.b-bottom-3{border-bottom: solid 3px #adb5bd;}
+.shadow{box-shadow: 0.5px 0.5px 0.5px 0px rgba(148, 148, 148, 0.25);}
+.table>tbody>tr>td {vertical-align: middle; }
+.table>thead>tr>th {vertical-align: top; }
+.bg-primary-select{background-color: rgba(90, 136, 255, 0.25);}
+
+.form-check-input{
+    // scale: 1.2;
+    // margin-right: 0.6rem;
+    // border-radius:0.15rem;
+    scale: 1.1;
+    margin-right: 0.5rem;
+    border-radius:0.14rem;
+}
+
+.form-check-input:checked{
+    background-color: #FFAA2C !important;
+    border: 0px;
+ }
+ .form-check-input:focus, .label::after, label.form-check-label:focus, .form-check-input::after, .form-check-input:not(:disabled):not(.disabled):active:focus {
+    color: #FFAA2C;
+    outline: 0;
+    border: 0;
+    box-shadow: 0 0 0 0.1rem #FFAA2C !important;
+ }
+
+ .trapecio{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+ }
+
+  .text-trunc { 
+   overflow: hidden;
+   text-overflow: ellipsis;
+ }
+
+ .btn-delete{
+    border: 0px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 50%;
+    font-weight: bold;
+    background-color: #dedede;
+    color: #6B6B6B;
+    text-align: center;
+    padding: 0px 0.6px 1.1px 0px;
+ }
+ .btn-delete::after{
+    content: "X";
+ }
+
+ .truncate-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Número de líneas antes del truncamiento */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; /* Cambiar a 'nowrap' si no quieres saltos de línea */
+  }
+

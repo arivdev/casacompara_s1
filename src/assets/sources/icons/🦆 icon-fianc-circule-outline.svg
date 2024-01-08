@@ -1,0 +1,11 @@
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12.5" cy="12.5" r="11.25" stroke="#BBBBBB" stroke-width="1.5"/>
+<rect x="0.707076" y="-0.0110681" width="0.955682" height="4.98578" rx="0.477841" transform="matrix(0.729338 -0.684154 0.750394 0.660991 3.26218 16.8027)" stroke="#BBBBBB" stroke-width="0.955682"/>
+<rect x="0.661857" y="-0.0103603" width="0.894564" height="4.14187" rx="0.447282" transform="matrix(0.729338 -0.684154 0.750394 0.660991 4.71105 16.0507)" stroke="#BBBBBB" stroke-width="0.894564"/>
+<path d="M6.62432 15.0151C10.3385 10.4663 9.72308 13.7947 14.4647 13.3819" stroke="#BBBBBB" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M14.5386 13.5173C15.4134 14.7663 14.5215 15.3171 10.8411 15.1518" stroke="#BBBBBB" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M14.37 14.9077C17.1425 15.7351 18.2046 11.4616 20.1853 13.2923" stroke="#BBBBBB" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M20.2597 13.5757C17.5557 17.0154 14.673 17.9967 9.3511 17.6956" stroke="#BBBBBB" stroke-width="1.2" stroke-linecap="round"/>
+<circle cx="16" cy="8" r="2.6" stroke="#BBBBBB" stroke-width="0.8"/>
+<circle cx="14" cy="8" r="2.6" stroke="#BBBBBB" stroke-width="0.8"/>
+</svg>
