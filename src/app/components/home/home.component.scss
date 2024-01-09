@@ -101,3 +101,81 @@
     white-space: normal; /* Cambiar a 'nowrap' si no quieres saltos de línea */
   }
 
+  @media (min-width: 0px) {
+    .margin_results{
+        margin: 0px;
+    }
+    
+  }
+  @media (min-width: 840px) {
+    .margin_results{
+        margin-left: 3rem;
+        margin-right: 3rem;
+        margin-top: 1rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .disp-none{
+        display: none;
+    }
+    .margin-l{
+        margin-left: 8px;
+    }
+    .text-right{
+        text-align: end;
+    }
+  }
+  @media (max-width: 472px) {
+    .w-15{
+        width: auto !important;
+    }
+  }
+  @media (max-width: 578px) {
+    .disp-none-mx-4{
+        display: none !important;
+    }
+    .marg-l-2{
+        margin-left: 1rem;
+    }
+    .ml-xxs-0{
+        margin-left: 0px !important;
+    }
+    .mt-xxs-1{
+        margin-top: 1rem !important;
+    }
+  }
+  @media (max-width: 992px) {
+    .marg-previw-r{
+        margin-right: 0px !important;
+    }
+  }
+  @media (max-width: 782px) {
+    .marg-previw-l-0{
+        margin-left: 0px !important;
+    }
+    .marg-previw-l-1{
+        margin-left: 1rem !important;
+    }
+  }
+  @media (max-width: 576px) {
+    .marg-previw-l-0-xs{
+        margin-left: 0px !important;
+    }
+    .margin-0{
+        margin: 0px !important;
+    }
+    .padd-xs-1{
+        padding: 1rem !important;
+    }
+  }
+  @media (max-width: 1031px) {
+    .marg-previw-l-0-lg{
+        margin-left: 0px !important;
+    }
+  }
+
+  @media (min-width: 1169px) {
+    .display-none{
+        display: none;
+    }
+  }

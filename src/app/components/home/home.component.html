@@ -10,7 +10,8 @@
 
 <div style="margin: 10px 45px;">
   
-  <div class="dropdown d-flex justify-content-center mt-4"> <!--Filtradores de modelos-->
+  <!--Filtradores de modelos-->
+  <div class="dropdown d-flex justify-content-center mt-4"> 
     <button type="button" class="btn btn-primary btn-sm fw-semibold" (click)="show_query()" [ngClass]="{'disabled': statusDisabled}">FILTRAR</button>
     
     <div class="d-flex scroll-x">
@@ -36,18 +37,6 @@
             <input class="form-check-input me-1" type="checkbox" value="punta dorada" aria-label="..." [(ngModel)]="f[1]" (change)="f[1] ? f[1] = f[2] : f[1] = false" (change)="onClickFracc($event)">
             {{f[2] | titlecase}}
           </li>
-          <!-- <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="punta coral" aria-label="..." [(ngModel)]="query_multi_filt_fracc[1][1]" (change)="query_multi_filt_fracc[1][1] ? query_multi_filt_fracc[1][1] = 'PUNTA CORAL' : query_multi_filt_fracc[1][1] = false" (change)="onClickFracc($event)">
-            Punta Coral
-          </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="punta del mar" aria-label="..." [(ngModel)]="query_multi_filt_fracc[2][1]" (change)="query_multi_filt_fracc[2][1] ? query_multi_filt_fracc[2][1] = 'PUNTA DEL MAR' : query_multi_filt_fracc[2][1] = false" (change)="onClickFracc($event)">
-            Punta del Mar
-          </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="xarama casas" aria-label="..." [(ngModel)]="query_multi_filt_fracc[3][1]" (change)="query_multi_filt_fracc[3][1] ? query_multi_filt_fracc[3][1] = 'XARAMA CASAS' : query_multi_filt_fracc[3][1] = false" (change)="onClickFracc($event)">
-            Xarama Casas
-          </li> -->
         </ul>
       </ul>
 
@@ -90,26 +79,6 @@
             <input class="form-check-input me-1" type="checkbox" value="emporium" aria-label="..." [(ngModel)]="d[1]" (change)="d[1] ? d[1] = d[2] : d[1] = false" (change)="onClickDesrr($event)">
             {{d[2] | titlecase}}
           </li>
-          <!-- <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="alkimia" aria-label="..." [(ngModel)]="query_multi_desrr[1][1]" (change)="query_multi_desrr[1][1] ? query_multi_desrr[1][1] = 'ALKIMIA' : query_multi_desrr[1][1] = false" (change)="onClickDesrr($event)">
-            ALKIMIA
-          </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="terrabit" aria-label="..." [(ngModel)]="query_multi_desrr[2][1]" (change)="query_multi_desrr[2][1] ? query_multi_desrr[2][1] = 'TERRABIT' : query_multi_desrr[2][1] = false" (change)="onClickDesrr($event)">
-            TERRABIT
-          </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="omega desr." aria-label="..." [(ngModel)]="query_multi_desrr[3][1]" (change)="query_multi_desrr[3][1] ? query_multi_desrr[3][1] = 'OMEGA DESR.' : query_multi_desrr[3][1] = false" (change)="onClickDesrr($event)">
-            OMEGA DESR.
-          </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." [(ngModel)]="query_multi_desrr[4][1]" (change)="query_multi_desrr[4][1] ? query_multi_desrr[4][1] = 'GARCAM' : query_multi_desrr[4][1] = false" (change)="onClickDesrr($event)">
-            GARCAM
-          </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." [(ngModel)]="query_multi_desrr[5][1]" (change)="query_multi_desrr[5][1] ? query_multi_desrr[5][1] = 'GRUPO SAN CRISTOBAL' : query_multi_desrr[5][1] = false" (change)="onClickDesrr($event)">
-            GRUPO SAN CRISTOBAL
-          </li> -->
         </ul>
       </ul>
       
@@ -120,22 +89,17 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
         <li *ngFor="let fp of query_multi_filt_price"><a class="dropdown-item" (click)="onClickPrice(fp.prices)">{{fp.title}}</a></li>
-        <!-- <li><a class="dropdown-item" (click)="onClickPrice([2000000,3000000])">2M A 3M</a></li>
-        <li><a class="dropdown-item" (click)="onClickPrice([3000000,4000000])">3M A 4M</a></li>
-        <li><a class="dropdown-item" (click)="onClickPrice([4000000,5000000])">4M A 5M</a></li>
-        <li><a class="dropdown-item" (click)="onClickPrice([5000000,6000000])">5M A 6M</a></li> -->
       </ul>
     </div>
 
   </div>
 
 
-    <div class="my-3" style="margin-left: 150px;"> <!-- BADGE FILTERS -->
+    <div class="my-3"> <!-- BADGE FILTERS -->
       <span *ngIf="this.query_filtration_group.IdTipoUbicacion" class="badge rounded-pill bg-light px-2 text-secondary mx-1">{{query_filtration_group.IdTipoUbicacion}} <button class="btn-delete" (click)="cleanFilter('IdTipoUbicacion')"></button></span>
       <span *ngIf="badgeFraccionamientos != undefined" class="badge rounded-pill bg-light px-2 text-secondary mx-1"> 
         <span *ngFor="let i of badgeFraccionamientos; let indice=index" class="d-inline-block text-truncate" style="max-width: 4.5rem;">{{badgeFraccionamientos[indice][1]}}</span> <button class="btn-delete" (click)="cleanFilter('Fraccionamientos')"></button>
       </span>
-      <!-- <span class="badge rounded-pill bg-light p-2 text-secondary mx-1">PUNTA CORAL, ALDARES...</span> -->
       <span *ngIf="this.query_filtration_group.IdNivel" class="badge rounded-pill bg-light px-2 text-secondary mx-1">{{query_filtration_group.IdNivel}} <button class="btn-delete" (click)="cleanFilter('IdNivel')"></button></span>
       <span *ngIf="this.query_filtration_group.IdZona" class="badge rounded-pill bg-light px-2 text-secondary mx-1">{{query_filtration_group.IdZona}} <button class="btn-delete" (click)="cleanFilter('IdZona')"></button></span>
       
@@ -150,72 +114,60 @@
 
 
     <!-- Preview items-compara -->
-    <div @myInsertRemoveTrigger *ngIf="myCollapse" class="mx-5 mt-5 d-flex align-items-center">
-      <div class="card me-5 border-0 shadow-sm" style="width: 12rem; border-radius: 8px; background-color: rgba(90, 136, 255, 0.10);">
+    <div @myInsertRemoveTrigger *ngIf="myCollapse" class="mx-5 mt-5 margin-0 d-flex flex-wrap align-items-center">
+      <div class="card me-5 marg-previw-r border-0 shadow-sm mt-2 w-15" style="width: 12rem; border-radius: 8px; background-color: rgba(90, 136, 255, 0.10);">
         <div class="card-body p-2 d-flex" style="align-items: center;">
           <!-- <img class="mx-2" src = "../../../assets/sources/icons/🦆 icon-emporium-circule.svg" width="20.5rem" height="20.5rem" alt="Mi SVG feliz"/> -->
           <div class="rounded-circle border mx-2 text-primary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">1</div>
-          <h6 class="card-subtitle fw-bold text-primcustm" style="font-size: 12px; margin-top: 2px;">{{comparedItems[0].IdPrototipo}}<br><span style="font-size: 10px;">{{comparedItems[0].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[0].IdDesarrollador}}</span></h6>       
+          <h6 class="card-subtitle fw-bold text-primcustm" style="font-size: 12px; margin-top: 2px;">{{comparedItems[0].IdPrototipo}}<br><span class="me-2" style="font-size: 10px;">{{comparedItems[0].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[0].IdDesarrollador}}</span></h6>       
         </div>
       </div>
-      <div @myInsertRemoveHorz *ngIf="comparedItems[1]" class="card bg-light ms-3 border-0 shadow-sm" style="width: 12rem; border-radius: 8px;">
+      <div @myInsertRemoveHorz *ngIf="comparedItems[1]" class="card bg-light ms-3 mt-2 marg-previw-l-0-xs border-0 shadow-sm w-15" style="width: 12rem; border-radius: 8px;">
         <div class="card-body p-2 d-flex" style="align-items: center;">
           <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">2</div>
-          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[1].IdPrototipo}} <br><span style="font-size: 10px;">{{comparedItems[1].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[1].IdDesarrollador}}</span></h6>       
+          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[1].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[1].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[1].IdDesarrollador}}</span></h6>       
         </div>
       </div>
-      <div @myInsertRemoveHorz *ngIf="comparedItems[2]" class="card bg-light ms-3 border-0 shadow-sm" style="width: 12rem; border-radius: 8px;">
+      <div @myInsertRemoveHorz *ngIf="comparedItems[2]" class="card bg-light ms-3 mt-2 marg-previw-l-0 border-0 shadow-sm w-15" style="width: 12rem; border-radius: 8px;">
         <div class="card-body p-2 d-flex" style="align-items: center;">
           <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">3</div>
-          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[2].IdPrototipo}} <br><span style="font-size: 10px;">{{comparedItems[2].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[2].IdDesarrollador}}</span></h6>       
+          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[2].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[2].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[2].IdDesarrollador}}</span></h6>       
         </div>
       </div>
-      <div @myInsertRemoveHorz *ngIf="comparedItems[3]" class="card bg-light ms-3 border-0 shadow-sm" style="width: 12rem; border-radius: 8px;">
+      <div @myInsertRemoveHorz *ngIf="comparedItems[3]" class="card bg-light ms-3 mt-2 marg-previw-l-0-xs marg-previw-l-0-lg border-0 shadow-sm w-15" style="width: 12rem; border-radius: 8px;">
         <div class="card-body p-2 d-flex" style="align-items: center;">
           <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">4</div>
-          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[3].IdPrototipo}} <br><span style="font-size: 10px;">{{comparedItems[3].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[3].IdDesarrollador}}</span></h6>       
+          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[3].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[3].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[3].IdDesarrollador}}</span></h6>       
         </div>
       </div>
 
-      <button class="btn btn-primary btn-sm ms-5 fw-semibold" (click)="scrollToSection('section1')" type="button" >Comparar</button> 
-      <button class="btn bg-transparent text-secondary btn-sm ms-2 fw-semibold" type="button" (click)="cleanSelection()">Limpiar</button> 
+      <button class="btn btn-primary btn-sm ms-5 ml-xxs-0 mt-xxs-1 fw-semibold" (click)="scrollToSection('section1')" type="button" >Comparar</button> 
+      <button class="btn bg-transparent text-secondary btn-sm ms-2 mt-xxs-1 fw-semibold" type="button" (click)="cleanSelection()">Limpiar</button> 
 
     </div>
 
 
-  <!-- <div class="collapse" id="miColapsable" data-bs-no-auto-collapse>
-    <div class=" d-flex align-items-center">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h6 class="card-subtitle text-muted">Card subtitle</h6>       
-        </div>
-      </div>
-      <button class="btn btn-primary" type="button" >Comparar</button> 
-    </div>
-  </div> -->
   <div *ngIf="resultsEMP.length == 0 && resultsCOMP.length == 0" class="row" style="margin-top: 10%; margin-bottom: 6%;">
     <img class="col-12" width="180px" height="180px" src="../../../assets/sources/icons/🦆 icon-balance.svg" alt=""> <br> <h5 class="text-center text-secustm fw-normal">Comparar entre diferentes modelos y viviendas</h5>
   </div>
 
   <div *ngIf="resultsEMP.length || resultsCOMP.length">
-    <ul class="list-group mt-3 mx-5" style="--bs-list-group-border-color:none">
+    <ul class="list-group margin_results" style="--bs-list-group-border-color:none">
       <div class="d-flex justify-content-between my-2">
         <h6 style="font-size: 13px;" class="my-4 text-secondary"><span class="text-secustm">MODELOS</span> EMPORIUM</h6>
         <h6 style="font-size: 13px;" class="my-4 text-secustm">4 SELECCIONES MÁX</h6>
       </div>
-  
-      <!-- <h1 *ngIf="resultsEMP.length == 0" style="color: gray; text-align: center; font-size: 16px; margin: 3%;">No hay coincidencias</h1> -->
-  
+    
       <div @listAppear *ngFor="let model of resultsEMP; let indice=index" class="row d-flex list-group-item mb-3 border-list" style="padding: 0px 0px 15px 5px">
-        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1 col-2" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Status_Inactivo"></div>
-        <div style="font-size: 0.9rem;" class="col-2 text-start fw-semibold text-secondary align-self-center">
+        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Status_Inactivo"></div>
+        <div style="font-size: 0.9rem;" class="col-lg-2 col-md-2 col-sm-2 col-3 text-start fw-semibold text-secondary align-self-center marg-l-2">
           <img class="me-3" width="34px" height="34px" src = "../../../assets/sources/icons/🦆 icon-emporium-circule.svg" alt="Mi SVG feliz"/>
           <span class="d-inline-block text-truncate"  style="max-width: 100px;">{{model.IdPrototipo}}</span>
         </div>
-        <div class="col-2 text-start fw-semibold text-secondary align-self-center lh-1   d-inline-block text-truncate"  style="max-width: 200px;">{{model.IdFraccionamiento | titlecase}} <br><span class="fw-semibold text-secustm" style="font-size: small;">{{model.IdDesarrollador=='EMPORIUM'? 'Grupo Emporium':model.IdDesarrollador}}</span></div>
-        <div class="col-2 text-start fw-semibold text-secondary align-self-center lh-1">{{model.Precio | moneyViewList}} / {{model.Apartado | moneyViewList}}<br><span class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span></div>
-        <div class="col-3 text-center fw-bold text-secondary align-self-center"><span class="badge bg-secondary fw-semibold w-50">{{model.TiempoEntrega}}</span></div>
-        <div class="col-2 text-center fw-bold text-secondary align-self-center">
+        <div class="col-lg-2 col-md-2 col-sm-3 margin-l text-start fw-semibold text-secondary align-self-center lh-1   d-inline-block text-truncate disp-none-mx-4"  style="max-width: 200px;">{{model.IdFraccionamiento | titlecase}} <br><span class="fw-semibold text-secustm" style="font-size: small;">{{model.IdDesarrollador=='EMPORIUM'? 'Grupo Emporium':model.IdDesarrollador}}</span></div>
+        <div class="col-lg-2 col-md-3 col-sm-5 col-7 margin-l text-start text-right fw-semibold text-secondary align-self-center lh-1">{{model.Precio | moneyViewList}} / {{model.Apartado | moneyViewList}}<br><span class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span></div>
+        <div class="col-lg-3 col-md-3 text-center fw-bold text-secondary align-self-center disp-none"><span class="badge bg-secondary fw-semibold w-50">{{model.TiempoEntrega}}</span></div>
+        <div class="col-lg-2 col-md-1 text-center fw-bold text-secondary align-self-center disp-none">
           <img class="" *ngIf="model.IdTipoUbicacion === 'CASA' " src = "../../../assets/sources/icons/🦆 icon-house-circule-outline.svg" alt="Mi SVG feliz"/>
             <img class="" *ngIf="model.IdTipoUbicacion === 'TERRENO' " src = "../../../assets/sources/icons/🦆 icon-land-circule-outline.svg" alt="Mi SVG feliz"/>
             <img class="" *ngIf="model.IdTipoUbicacion === 'DEPARTAMENTO' " src = "../../../assets/sources/icons/🦆 icon-depart_circule-outline.svg" alt="Mi SVG feliz"/>
@@ -229,22 +181,20 @@
         </div>
       </div>
     </ul>
-    <ul class="list-group mt-3 mx-5" style="--bs-list-group-border-color:none">
+    <ul class="list-group margin_results" style="--bs-list-group-border-color:none">
       <h6 style="font-size: 13px;" class="my-4 text-secondary"><span class="text-secustm">MODELOS</span> COMPARA</h6>
-  
-      <!-- <h1 *ngIf="resultsCOMP.length == 0" style="color: gray; text-align: center; font-size: 16px; margin: 3%;">No hay coincidencias</h1> -->
-  
+    
   
       <div @listAppear *ngFor="let model of resultsCOMP; let indice=index" class="row d-flex list-group-item mb-3 border-list" style="padding: 0px 0px 15px 5px">
-        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1 col-2" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Status_Inactivo" [disabled]="disableCheckCom"></div>
-        <div style="font-size: 0.9rem;" class="col-2 text-start fw-semibold text-secondary align-self-center">
+        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Status_Inactivo" [disabled]="disableCheckCom"></div>
+        <div style="font-size: 0.9rem;" class="col-lg-2 col-md-2 col-sm-2 col-3 text-start fw-semibold text-secondary align-self-center marg-l-2">
           <img class="me-3" width="34px" height="34px"  [src] = "model.icon.path" alt="Mi SVG feliz"/>
-          <span class="d-inline-block text-truncate"  style="max-width: 130px;">{{model.IdPrototipo}}</span>
+          <span class="d-inline-block text-truncate"  style="max-width: 100px;">{{model.IdPrototipo}}</span>
         </div>
-        <div class="col-2 text-start fw-semibold text-secondary align-self-center lh-1">{{model.IdFraccionamiento | titlecase}} <br><span class="fw-semibold text-secustm" style="font-size: small;">{{model.IdDesarrollador | titlecase}}</span></div>
-        <div class="col-2 text-start fw-semibold text-secondary align-self-center lh-1">{{model.Precio | moneyViewList}} / {{model.Apartado | moneyViewList}}<br><span class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span></div>
-        <div class="col-3 text-center fw-bold text-secondary align-self-center"><span class="badge bg-secondary fw-semibold w-50">{{model.TiempoEntrega}}</span></div>
-        <div class="col-2 text-center fw-bold text-secondary align-self-center">
+        <div class="col-lg-2 col-md-2 col-sm-3 margin-l text-start fw-semibold text-secondary align-self-center lh-1  d-inline-block text-truncate disp-none-mx-4" style="max-width: 200px;">{{model.IdFraccionamiento | titlecase}} <br><span class="fw-semibold text-secustm" style="font-size: small;">{{model.IdDesarrollador | titlecase}}</span></div>
+        <div class="col-lg-2 col-md-3 col-sm-5 col-7 margin-l text-start fw-semibold text-secondary align-self-center lh-1">{{model.Precio | moneyViewList}} / {{model.Apartado | moneyViewList}}<br><span class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span></div>
+        <div class="col-lg-3 col-md-3 text-center fw-bold text-secondary align-self-center disp-none"><span class="badge bg-secondary fw-semibold w-50">{{model.TiempoEntrega}}</span></div>
+        <div class="col-lg-2 col-md-1 text-center fw-bold text-secondary align-self-center disp-none">
           <img class="" *ngIf="model.IdTipoUbicacion === 'CASA' " src = "../../../assets/sources/icons/🦆 icon-house-circule-outline.svg" alt="Mi SVG feliz"/>
           <img class="" *ngIf="model.IdTipoUbicacion === 'TERRENO' " src = "../../../assets/sources/icons/🦆 icon-land-circule-outline.svg" alt="Mi SVG feliz"/>
           <img class="" *ngIf="model.IdTipoUbicacion === 'DEPARTAMENTO' " src = "../../../assets/sources/icons/🦆 icon-depart_circule-outline.svg" alt="Mi SVG feliz"/>
@@ -262,187 +212,17 @@
   </div>
   
   <h6 style="font-size: 15px;" class="my-4 pt-5 text-secondary" id="section1"><span *ngIf="tableComparaItems.length != 0">COMPARACIÓN</span></h6>
-
-  <!-- <table class="table">
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col" class="bg-primary-select text-center w-50" style="border-top-left-radius: 12px; border-top-right-radius: 12px; position: relative; padding-top: 38px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-          <img class="trapecio" src="../../../assets/sources/icons/sticker-emporium-golden.svg" alt="">
-
-          <div class="bg-white" style="width: 12rem; height: 8rem; border-radius: 12px;"></div>
-          <h6 style="font-size: 15px;" class="my-4 text-secondary">Modelo - Terra, Residencial Punta Coral, Calle Av. Gpe Gonzalez. 
-            <br> ▶ ENTREGA INMEDIATA
-              <div class="d-grid mt-4"><button type="button" class="btn btn-primary btn-sm fw-semibold btn-block">VER MÁS</button></div>
-          </h6>
-
-        </th>
-        <th scope="col-2" class="text-center text-secondary">
-          OTRO
-          <div class="bg-success" style="width: 12rem; height: 8rem; border-radius: 12px; margin: auto;"></div>
-        </th>
-        <th scope="col-2" class="text-center text-secondary">
-          OTRO
-          <div class="bg-success" style="width: 12rem; height: 8rem; border-radius: 12px; margin: auto;"></div>
-        </th>
-        <th scope="col-2" class="text-center text-secondary">
-          OTRO
-          <div class="bg-success" style="width: 12rem; height: 8rem; border-radius: 12px; margin: auto;"></div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">TIPO VIVIENDA</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-house-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">TIPO VIVIENDA</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">NIVEL</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-level-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">TIPO VIVIENDA</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">ZONA</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-zone-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">HABITACIONES</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-room-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">BAÑOS</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-roof-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">TERRAZA</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-roof-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">ESTACIONAMI...</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-park-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">PRECIO</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-price-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">FINANCIAMIENTO</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-fianc-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-      <tr>
-        <th scope="row" class="d-flex"><div class="col text-secustm">AMENIDADES</div><div class="col text-end"><img class="align-text-end"  src = "../../../assets/sources/icons/🦆 icon-amenid-circule-outline.svg" alt="Mi SVG feliz"/></div></th>
-        <td class="bg-primary-select text-center w-50">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@dangerous</td>
-      </tr>
-    </tbody>
-  </table> -->
-
-  <!-- <div class="row">
-    <div class="col p-2">
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">TIPO VIVIENDA</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-house-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">NIVEL</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-level-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">ZONA</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-zone-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">HABITACIONES</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-room-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">BAÑOS</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-bath-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">TERRAZA</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-roof-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">ESTACIONAMI...</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-park-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">PRECIO</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-price-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">FINANCIAMIENTO</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-fianc-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">AMENIDADES</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-amenid-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-    </div>
-    <div class="col-2 bg-primary-select p-2" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">CASA</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">RESIDENCIAL</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">NORT PONIENTE</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">4</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">2</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">SÍ</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">2</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">$3,660,000.00</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">BANCARIO, COFI, INFO TOTAL, CONTADO</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">VIGILANCIA, CASA CLUB, GYM ALBERCA, TERRAZA, CANCHAS</div></div>
-    </div>
-    <div class="col p-2">Otros</div>
-    <div class="col p-2">Otros</div>
-    <div class="col p-2">Otros</div>
-  </div> -->
   
-  <!-- <div class="row">
-    <div class="col p-2">
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">TIPO VIVIENDA</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-house-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">NIVEL</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-level-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">ZONA</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-zone-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">HABITACIONES</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-room-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">BAÑOS</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-bath-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">TERRAZA</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-roof-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">ESTACIONAMI...</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-park-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">PRECIO</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-price-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">FINANCIAMIENTO</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-fianc-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-      <div class="row text-start fw-semibold text-secustm mb-3"><div class="col ms-4">AMENIDADES</div><div class="col text-end me-4"><img class="" src = "../../../assets/sources/icons/🦆 icon-amenid-circule-outline.svg" alt="Mi SVG feliz"/></div></div>
-    </div>
-    <div class="col-2 bg-primary-select p-2" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">CASA</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">RESIDENCIAL</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">NORT PONIENTE</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">4</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">2</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">SÍ</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">2</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">$3,660,000.00</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">BANCARIO, COFI, INFO TOTAL, CONTADO</div></div>
-      <div class="row text-center fw-semibold text-secustm mb-3"><div class="col ms-4" style="height: 26.5px;">VIGILANCIA, CASA CLUB, GYM ALBERCA, TERRAZA, CANCHAS</div></div>
-    </div>
-    <div class="col p-2">Otros</div>
-    <div class="col p-2">Otros</div>
-    <div class="col p-2">Otros</div>
-  </div> -->
+</div>
 
+<!-- //Tabla de comparación -->
 
-
-
-  <!-- //Tabla de comparación -->
-
+<div class="overflow-scroll" style="margin: 10px 0px 10px 25px;">
   <table class="table" *ngIf="tableComparaItems.length != 0">
     <thead>
      <tr>
       <th class="w-20 pb-3 text-secondary fw-semibold b-bottom-3" style="vertical-align: bottom;"><input class="form-check-input me-1 col-2" type="checkbox" value="" aria-label="..."> Mostrar por diferencias</th>
       
-      <!-- <th @tableCompAppear1 class="w-20 bg-primary-select text-center b-bottom-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px; position: relative; padding-top: 46px;">
-        <img class="trapecio" src="../../../assets/sources/icons/sticker-emporium-golden.svg" alt="">
-        <div class="bg-white" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
-        <h6 style="font-size: 15px;" class="my-3 mx-4 text-secondary text-start">Modelo - {{tableComparaItems[0]?.IdPrototipo | titlecase}}, Residencial {{tableComparaItems[0]?.IdFraccionamiento | titlecase}}, Calle {{tableComparaItems[0]?.Ubicacion | titlecase}}. 
-          <br><br><span class="text-primary fw-bold">▶ ENTREGA {{tableComparaItems[0]?.TiempoEntrega}}</span>
-            <div class="d-grid mt-4"><button type="button" class="btn btn-primary btn-sm fw-semibold btn-block">VER MÁS</button></div>
-        </h6>
-      </th> -->
       <th @tableCompAppear1 class="w-20 bg-primary-select text-center b-bottom-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px; position: relative; padding-top: 46px;">
         <img class="trapecio" src="../../../assets/sources/icons/sticker-emporium-golden.svg" alt="">
         <div class="d-flex flex-column justify-content-around">
@@ -555,7 +335,6 @@
       <td class="text-center text-secondary fw-semibold align-middle"><span *ngFor="let f of tableComparaItems[3]?.Financiamientos">{{f}}, </span></td>
      </tr>
      <tr>
-      <!-- <td class="row justify-content-between"><div class="col-4"><span class="text-secustm text-start fw-semibold">AMENIDADES</span></div><div class="col-4"><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-amenid-circule-outline.svg" alt="Mi SVG feliz"/></div></td> -->
       <td> <div class="d-flex justify-content-between"><span class="text-secustm text-start fw-semibold">AMENIDADES</span><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-amenid-circule-outline.svg" alt="Mi SVG feliz"/></div></td>
       <td class="bg-primary-select text-secondary text-center fw-semibold align-middle">{{tableComparaItems[0]?.Amenidades}}</td>
       <td class="text-center text-secondary fw-semibold align-middle">{{tableComparaItems[1]?.Amenidades}}</td>
@@ -571,65 +350,62 @@
      </tr>
     </tbody>
   </table>
+</div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        
-        <div class="modal-body">
-          <div class="row mb-2"><h1>{{modalItemSelected?.IdPrototipo}}</h1></div>
-          <div class="row">
-            <div class="col-md-7 align-self-start">
-              <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
-            </div>
-            <div class="col-md-5 mt-1">
-              <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-m2.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.M2}} m<sup>2</sup></span></div>
-              <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-engch.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Enganche}}%</span></div>
-              <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-descuento.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Descuento}}%</span></div>
-              <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-apartado.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Apartado | moneyViewNormal}}</span></div>
-            </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <div class="row mb-2"><h1>{{modalItemSelected?.IdPrototipo}}</h1></div>
+        <div class="row">
+          <div class="col-7 align-self-start">
+            <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
+          </div>
+          <div class="col-5 mt-1">
+            <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-m2.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.M2}} m<sup>2</sup></span></div>
+            <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-engch.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Enganche}}%</span></div>
+            <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-descuento.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Descuento}}%</span></div>
+            <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-apartado.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Apartado | moneyViewNormal}}</span></div>
           </div>
         </div>
-        <div class="modal-footer p-1">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
+      </div>
+      <div class="modal-footer p-1">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
-
-  
 </div>
 
 <!-- Footer -->
-<div id="footer" class="row p-5 mt-5 bg-light container-fluid">
-  <div class="col-2">
+<!-- <footer id="footer" class="d-flex justify-content-between bg-light" style="height: auto;">
+  <div class="p-5 padd-xs-1">
     <img src="../../../assets/sources/imgs/Grupo-Emporium.png" alt="">
-    <h5 style="font-size: 12px;" class="text-secondary fw-semibold">Blvd. San Marcos 203, Bulevar, 20218 Aguascalientes,
-      Ags.</h5>
+    <h5 style="font-size: 12px;" class="text-secondary fw-semibold">Blvd. San Marcos 203, Bulevar, 20218 Aguascalientes, Ags.</h5>
     <h5 style="font-size: 12px;" class="text-secondary mt-4 fw-semibold">Tel. 01 (449) 910 05 50</h5>
   </div>
-  <div class="col-7">
-    <ul style="margin-left: 10%; margin-top: 2%; list-style: none; font-size: 12px;" class="fw-semibold">
-      <li><a href="" class="text-decoration-none text-secondary">- PUNTA CORAL</a></li>
-      <li><a href="" class="text-decoration-none text-secondary">- PUNTA DORADA</a></li>
-      <li><a href="" class="text-decoration-none text-secondary">- PUNTA DEL CARMEN</a></li>
-      <li><a href="" class="text-decoration-none text-secondary">- VIVANTA</a></li>
-      <li><a href="" class="text-decoration-none text-secondary">- LUZIA RESIDENCIAL</a></li>
-      <li><a href="" class="text-decoration-none text-secondary">- PUNTA MAYA</a></li>
-      <li><a href="" class="text-decoration-none text-secondary">- LOMA ALTA</a></li>
-    </ul>
-    <h5 style="font-size: 12px; margin-top: 8%;" class="text-secondary fw-semibold text-center">Un Desarrollo de GRUPO
-      EMPORIUM ©. Todos los derechos reservados, 2022.</h5>
-
-  </div>
-  <div class="col-3">
+  <div class="p-5 padd-xs-1">
     <ul style="margin-top: 5%; list-style: none; font-size: 12px;" class="fw-semibold">
       <li><a href="" class="text-decoration-none text-secondary"><img src="../../../assets/sources/imgs/facebook.png"
             width="38px" height="38px" alt=""> Grupo Emporium </a></li>
       <li><a href="" class="text-decoration-none text-secondary"><img src="../../../assets/sources/imgs/youtube.png"
             width="38px" height="38px" alt=""> /@GrupoEmporium</a></li>
-      <li><a href="" class="text-decoration-none text-secondary"><img src="../../../assets/sources/imgs/instagram.png"
+            <li><a href="" class="text-decoration-none text-secondary"><img src="../../../assets/sources/imgs/instagram.png"
             width="38px" height="38px" alt=""> @grupoemporium</a></li>
-    </ul>
+          </ul>
   </div>
-</div>
+</footer> -->
+<!-- <div class="col-7">
+  <ul style="margin-left: 10%; margin-top: 2%; list-style: none; font-size: 12px;" class="fw-semibold">
+    <li><a href="" class="text-decoration-none text-secondary">- PUNTA CORAL</a></li>
+    <li><a href="" class="text-decoration-none text-secondary">- PUNTA DORADA</a></li>
+    <li><a href="" class="text-decoration-none text-secondary">- PUNTA DEL CARMEN</a></li>
+    <li><a href="" class="text-decoration-none text-secondary">- VIVANTA</a></li>
+    <li><a href="" class="text-decoration-none text-secondary">- LUZIA RESIDENCIAL</a></li>
+    <li><a href="" class="text-decoration-none text-secondary">- PUNTA MAYA</a></li>
+    <li><a href="" class="text-decoration-none text-secondary">- LOMA ALTA</a></li>
+  </ul>
+  <h5 style="font-size: 12px; margin-top: 8%;" class="text-secondary fw-semibold text-center">Un Desarrollo de GRUPO
+    EMPORIUM ©. Todos los derechos reservados, 2022.</h5>
+
+</div> -->
