@@ -159,7 +159,7 @@
       </div>
     
       <div @listAppear *ngFor="let model of resultsEMP; let indice=index" class="row d-flex list-group-item mb-3 border-list" style="padding: 0px 0px 15px 5px">
-        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Status_Inactivo"></div>
+        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Active"></div>
         <div style="font-size: 0.9rem;" class="col-lg-2 col-md-2 col-sm-2 col-3 text-start fw-semibold text-secondary align-self-center marg-l-2">
           <img class="me-3" width="34px" height="34px" src = "../../../assets/sources/icons/🦆 icon-emporium-circule.svg" alt="Mi SVG feliz"/>
           <span class="d-inline-block text-truncate"  style="max-width: 100px;">{{model.IdPrototipo}}</span>
@@ -186,7 +186,7 @@
     
   
       <div @listAppear *ngFor="let model of resultsCOMP; let indice=index" class="row d-flex list-group-item mb-3 border-list" style="padding: 0px 0px 15px 5px">
-        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Status_Inactivo" [disabled]="disableCheckCom"></div>
+        <div class="col-1 text-center fw-bold text-secondary align-self-center"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." (change)="detectedItemList($event,model)" [checked]="model.Active" [disabled]="disableCheckCom"></div>
         <div style="font-size: 0.9rem;" class="col-lg-2 col-md-2 col-sm-2 col-3 text-start fw-semibold text-secondary align-self-center marg-l-2">
           <img class="me-3" width="34px" height="34px"  [src] = "model.icon.path" alt="Mi SVG feliz"/>
           <span class="d-inline-block text-truncate"  style="max-width: 100px;">{{model.IdPrototipo}}</span>

@@ -399,6 +399,7 @@ export class HomeComponent implements OnInit{
   async ngOnInit(){
     await this.ubicService.getUbicaciones().subscribe((value:any) => {
       this.DB_DATA = value
+      this.DB_DATA.map((r)=>{r.Active = false})
       console.log(this.DB_DATA); //Trae toda la data limpia
 
       this.filter_data = [...this.DB_DATA] //Una copia de la data
@@ -557,10 +558,10 @@ export class HomeComponent implements OnInit{
         const removedItem = this.comparedItems.pop(); //Elimina el último elemento de mi array al ser más de 4 
         if(removedItem.IdDesarrollador == 'EMPORIUM'){
           const itemIndex = this.resultsEMP.findIndex((i:any) => i.Id === removedItem.Id); //Busca el index del grupo resultsEMP para ver si se parece al de mi removeItem
-          if (itemIndex != -1) this.resultsEMP[itemIndex].Status_Inactivo = false; //Entonces la propiedad Status_Inactivo (que activa el checkbox del template) se desactiva
+          if (itemIndex != -1) this.resultsEMP[itemIndex].Active = false; //Entonces la propiedad Active (que activa el checkbox del template) se desactiva
         }else{
           const itemIndex = this.resultsCOMP.findIndex((i:any) => i.Id === removedItem.Id); //Busca el index pero del grupo resultsCOMP
-          if (itemIndex != -1) this.resultsCOMP[itemIndex].Status_Inactivo = false;
+          if (itemIndex != -1) this.resultsCOMP[itemIndex].Active = false;
         }
 
       }
@@ -571,9 +572,9 @@ export class HomeComponent implements OnInit{
       // }
 
       this.comparedItems.push(item); //Agrego el -item- seleccionando (mediante el checkbox) al array
-      item.Status_Inactivo = true //Activa su check-box en el template
+      item.Active = true //Activa su check-box en el template
 
-      this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Status_Inactivo === false); //Valida si algún check de resultEMP fue activado  (funcional para evitar que no se seleccione un item-emporium)
+      this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Active === false); //Valida si algún check de resultEMP fue activado  (funcional para evitar que no se seleccione un item-emporium)
       console.log(this.disableCheckCom, this.resultsEMP)
 
       if(this.comparedItems.length == 1) this.myCollapse = true; //Si ya hay un registro muestra preview
@@ -581,8 +582,8 @@ export class HomeComponent implements OnInit{
 
     }else if(!e.target.checked){
       console.log('Quito')
-      item.Status_Inactivo = false //Desactiva logicamente la propiedad que valida el check-box
-      this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Status_Inactivo === false);
+      item.Active = false //Desactiva logicamente la propiedad que valida el check-box
+      this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Active === false);
       this.disableCheckCom? this.cleanSelection(): ''
 
       this.comparedItems = this.comparedItems.filter((i)=>i.Id!==item.Id) //Me regresará todos los demás items que su Id no sea igual al que se desactivo por medio del checkbox
@@ -734,13 +735,13 @@ export class HomeComponent implements OnInit{
     this.myCollapse = false; //Esconder preview por el ngIf 
     this.comparedItems = [];
     this.resultsEMP.map((r:any)=>{
-      r.Status_Inactivo = false
+      r.Active = false
     });
     this.resultsCOMP.map((r:any)=>{
-      r.Status_Inactivo = false
+      r.Active = false
     });
 
-    this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Status_Inactivo === false); //Valida si algún check de resultEMP fue activado  (funcional para evitar que no se seleccione un item-emporium)
+    this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Active === false); //Valida si algún check de resultEMP fue activado  (funcional para evitar que no se seleccione un item-emporium)
       // console.log(this.disableCheckCom)
   }
 

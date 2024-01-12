@@ -179,3 +179,21 @@
         display: none;
     }
   }
+
+
+
+  ::-webkit-scrollbar {
+    width: 8px;               /* width of the entire scrollbar */
+    height: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(188, 188, 188, 0.13);        /* color of the tracking area */
+    border-radius: 25px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(211, 211, 211);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    // border: 3px solid orange;  /* creates padding around scroll thumb */
+  }
