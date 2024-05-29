@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DecimalFraccionPipe } from './pipes/decimal-fraccion.pipe';
 
 import { HttpClientModule } from '@angular/common/http';
+import { FormAbcComponent } from './form-abc/form-abc.component';
+import { FiltroPagPipe } from './pipes/filtro-pag.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     MoneyViewListPipe,
     MoneyViewNormalPipe,
-    DecimalFraccionPipe
+    DecimalFraccionPipe,
+    FormAbcComponent,
+    FiltroPagPipe
   ],
   imports: [
     BrowserModule,
@@ -27,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,17 +1,28 @@
-<nav class="navbar bg-light">
+<!-- <nav class="navbar bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="../../../assets/sources/imgs/icono_emporium.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-center">
         GRUPO EMPORIUM
       </a>
-      <button type="button" class="btn"><i style="font-size: 28px; color: #FFAA2C;" class="bi bi-list"></i></button>
+      <button type="button" class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i style="font-size: 28px; color: #FFAA2C;" class="bi bi-list"></i></button>
     </div>
 </nav>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">Offcanvas with backdrop</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>.....</p>
+  </div>
+</div> -->
 
-<div style="margin: 10px 45px;">
+
+
+<div class="margin-body margin-sm-body">
   
   <!--Filtradores de modelos-->
-  <div class="dropdown d-flex justify-content-center mt-4"> 
+  <div class="dropdown d-flex justify-content-center mt-4" id="sectionTop"> 
     <button type="button" class="btn btn-primary btn-sm fw-semibold" (click)="show_query()" [ngClass]="{'disabled': statusDisabled}">FILTRAR</button>
     
     <div class="d-flex scroll-x">
@@ -40,18 +51,18 @@
         </ul>
       </ul>
 
-      <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{'disabled': statusDisabled}">
+      <!-- <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{'disabled': statusDisabled}">
         NIVEL 
         <img class="mx-1" src = "../../../assets/sources/icons/🦆 icon-level.svg" alt="Mi SVG feliz"/>
         <img class="ms-2" src = "../../../assets/sources/icons/🦆 icon-dropdown.svg" alt="Mi SVG feliz"/>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-        <li><a class="dropdown-item" (click)="onClickLevel('bajo')">Bajo</a></li>
+        <li><a class="dropdown-item" (click)="onClickLevel('bajo')">Tradicional</a></li>
         <li><a class="dropdown-item" (click)="onClickLevel('medio')">Medio</a></li>
         <li><a class="dropdown-item" (click)="onClickLevel('medio residencial')">Medio Residencial</a></li>
         <li><a class="dropdown-item" (click)="onClickLevel('residencial')">Residencial</a></li>
         <li><a class="dropdown-item" (click)="onClickLevel('residencial-plus')">Residencial-Plus</a></li>
-      </ul>
+      </ul>  -->
   
       <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{'disabled': statusDisabled}">
         ZONA 
@@ -100,7 +111,7 @@
       <span *ngIf="badgeFraccionamientos != undefined" class="badge rounded-pill bg-light px-2 text-secondary mx-1"> 
         <span *ngFor="let i of badgeFraccionamientos; let indice=index" class="d-inline-block text-truncate" style="max-width: 4.5rem;">{{badgeFraccionamientos[indice][1]}}</span> <button class="btn-delete" (click)="cleanFilter('Fraccionamientos')"></button>
       </span>
-      <span *ngIf="this.query_filtration_group.IdNivel" class="badge rounded-pill bg-light px-2 text-secondary mx-1">{{query_filtration_group.IdNivel}} <button class="btn-delete" (click)="cleanFilter('IdNivel')"></button></span>
+      <span *ngIf="this.query_filtration_group.IdNivel" class="badge rounded-pill bg-light px-2 text-secondary mx-1">{{query_filtration_group.IdNivel == 'BAJO' ? 'TRADICIONAL' : query_filtration_group.IdNivel}} <button class="btn-delete" (click)="cleanFilter('IdNivel')"></button></span>
       <span *ngIf="this.query_filtration_group.IdZona" class="badge rounded-pill bg-light px-2 text-secondary mx-1">{{query_filtration_group.IdZona}} <button class="btn-delete" (click)="cleanFilter('IdZona')"></button></span>
       
       <span *ngIf="badgeDesarrollador != undefined" class="badge rounded-pill bg-light px-2 text-secondary mx-1"> 
@@ -114,10 +125,9 @@
 
 
     <!-- Preview items-compara -->
-    <div @myInsertRemoveTrigger *ngIf="myCollapse" class="mx-5 mt-5 margin-0 d-flex flex-wrap align-items-center">
+    <!-- <div @myInsertRemoveTrigger *ngIf="myCollapse" class="mx-5 mt-5 margin-0 d-flex flex-wrap align-items-center">
       <div class="card me-5 marg-previw-r border-0 shadow-sm mt-2 w-15" style="width: 12rem; border-radius: 8px; background-color: rgba(90, 136, 255, 0.10);">
         <div class="card-body p-2 d-flex" style="align-items: center;">
-          <!-- <img class="mx-2" src = "../../../assets/sources/icons/🦆 icon-emporium-circule.svg" width="20.5rem" height="20.5rem" alt="Mi SVG feliz"/> -->
           <div class="rounded-circle border mx-2 text-primary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">1</div>
           <h6 class="card-subtitle fw-bold text-primcustm" style="font-size: 12px; margin-top: 2px;">{{comparedItems[0].IdPrototipo}}<br><span class="me-2" style="font-size: 10px;">{{comparedItems[0].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[0].IdDesarrollador}}</span></h6>       
         </div>
@@ -144,7 +154,7 @@
       <button class="btn btn-primary btn-sm ms-5 ml-xxs-0 mt-xxs-1 fw-semibold" (click)="scrollToSection('section1')" type="button" >Comparar</button> 
       <button class="btn bg-transparent text-secondary btn-sm ms-2 mt-xxs-1 fw-semibold" type="button" (click)="cleanSelection()">Limpiar</button> 
 
-    </div>
+    </div> -->
 
 
   <div *ngIf="resultsEMP.length == 0 && resultsCOMP.length == 0" class="row" style="margin-top: 10%; margin-bottom: 6%;">
@@ -221,9 +231,9 @@
   <table class="table" *ngIf="tableComparaItems.length != 0">
     <thead>
      <tr>
-      <th class="w-20 pb-3 text-secondary fw-semibold b-bottom-3" style="vertical-align: bottom;"><input class="form-check-input me-1 col-2" type="checkbox" value="" aria-label="..."> Mostrar por diferencias</th>
+      <th class="pb-3 text-secondary fw-semibold b-bottom-3" style="vertical-align: bottom;"><input class="form-check-input me-1 col-2" type="checkbox" value="" aria-label="..."> Mostrar por diferencias</th>
       
-      <th @tableCompAppear1 class="w-20 bg-primary-select text-center b-bottom-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px; position: relative; padding-top: 46px;">
+      <th @tableCompAppear1 class="bg-primary-select text-center b-bottom-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px; position: relative; padding-top: 46px;">
         <img class="trapecio" src="../../../assets/sources/icons/sticker-emporium-golden.svg" alt="">
         <div class="d-flex flex-column justify-content-around">
           <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
@@ -237,7 +247,7 @@
           <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
           <h6 style="font-size: 15px; height: 75px;" class="my-3 mx-4 text-secondary text-start"><b>Modelo - {{tableComparaItems[1]?.IdPrototipo | titlecase}}</b>, Residencial {{tableComparaItems[1]?.IdFraccionamiento | titlecase}}, Calle {{tableComparaItems[1]?.Ubicacion | titlecase}}.</h6>
           <span class="text-black-50 fw-bold">▶ ENTREGA {{tableComparaItems[1]?.TiempoEntrega}}</span>
-          <div class="d-grid mt-4"><button type="button" class="btn text-secondary fw-bold btn-sm fw-semibold btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectInfoModal(tableComparaItems[1])">VER MÁS</button></div>
+          <div class="d-grid mt-4"><button type="button" class="btn text-secondary fw-bold btn-sm fw-semibold btn-block bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectInfoModal(tableComparaItems[1])">VER MÁS</button></div>
         </div>
       </th>
       <th @tableCompAppear3 class="w-20 text-center text-secondary b-bottom-3" style="position: relative; padding-top: 46px;"> <div class="trapecio">OTRO</div>
@@ -245,7 +255,7 @@
           <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
           <h6 style="font-size: 15px; height: 75px;" class="my-3 mx-4 text-secondary text-start"><b>Modelo - {{tableComparaItems[2]?.IdPrototipo | titlecase}}</b>, Residencial {{tableComparaItems[2]?.IdFraccionamiento | titlecase}}, Calle {{tableComparaItems[2]?.Ubicacion | titlecase}}.</h6>
           <span class="text-black-50 fw-bold">▶ ENTREGA {{tableComparaItems[2]?.TiempoEntrega}}</span>
-          <div class="d-grid mt-4"><button type="button" class="btn text-secondary fw-bold btn-sm fw-semibold btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectInfoModal(tableComparaItems[2])">VER MÁS</button></div>
+          <div class="d-grid mt-4"><button type="button" class="btn text-secondary fw-bold btn-sm fw-semibold btn-block bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectInfoModal(tableComparaItems[2])">VER MÁS</button></div>
         </div>
       </th>
       <th @tableCompAppear4 class="w-20 text-center text-secondary b-bottom-3" style="position: relative; padding-top: 46px;"> <div class="trapecio">OTRO</div>
@@ -253,7 +263,7 @@
           <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
           <h6 style="font-size: 15px; height: 75px;" class="my-3 mx-4 text-secondary text-start"><b>Modelo - {{tableComparaItems[3]?.IdPrototipo | titlecase}}</b>, Residencial {{tableComparaItems[3]?.IdFraccionamiento | titlecase}}, Calle {{tableComparaItems[3]?.Ubicacion | titlecase}}.</h6>
           <span class="text-black-50 fw-bold">▶ ENTREGA {{tableComparaItems[3]?.TiempoEntrega}}</span>
-          <div class="d-grid mt-4"><button type="button" class="btn text-secondary fw-bold btn-sm fw-semibold btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectInfoModal(tableComparaItems[3])">VER MÁS</button></div>
+          <div class="d-grid mt-4"><button type="button" class="btn text-secondary fw-bold btn-sm fw-semibold btn-block bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectInfoModal(tableComparaItems[3])">VER MÁS</button></div>
         </div>
       </th>
      </tr>
@@ -329,17 +339,58 @@
      </tr>
      <tr>
       <td> <div class="d-flex justify-content-between"><span class="text-secustm text-start fw-semibold">FINANCIAMIENTO</span><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-fianc-circule-outline.svg" alt="Mi SVG feliz"/></div></td>
-      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle"><span *ngFor="let f of tableComparaItems[0]?.Financiamientos">{{f}}, </span></td>
-      <td class="text-center text-secondary fw-semibold align-middle"><span *ngFor="let f of tableComparaItems[1]?.Financiamientos">{{f}}, </span></td>
-      <td class="text-center text-secondary fw-semibold align-middle"><span *ngFor="let f of tableComparaItems[2]?.Financiamientos">{{f}}, </span></td>
-      <td class="text-center text-secondary fw-semibold align-middle"><span *ngFor="let f of tableComparaItems[3]?.Financiamientos">{{f}}, </span></td>
+      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;"><span *ngFor="let f of tableComparaItems[0]?.Financiamientos">{{f}}, </span></td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;"><span *ngFor="let f of tableComparaItems[1]?.Financiamientos">{{f}}, </span></td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;"><span *ngFor="let f of tableComparaItems[2]?.Financiamientos">{{f}}, </span></td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;"><span *ngFor="let f of tableComparaItems[3]?.Financiamientos">{{f}}, </span></td>
      </tr>
      <tr>
       <td> <div class="d-flex justify-content-between"><span class="text-secustm text-start fw-semibold">AMENIDADES</span><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-amenid-circule-outline.svg" alt="Mi SVG feliz"/></div></td>
-      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle">{{tableComparaItems[0]?.Amenidades}}</td>
-      <td class="text-center text-secondary fw-semibold align-middle">{{tableComparaItems[1]?.Amenidades}}</td>
-      <td class="text-center text-secondary fw-semibold align-middle">{{tableComparaItems[2]?.Amenidades}}</td>
-      <td class="text-center text-secondary fw-semibold align-middle">{{tableComparaItems[3]?.Amenidades}}</td>
+      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[0]?.Amenidades}} </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[1]?.Amenidades}} </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[2]?.Amenidades}} </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[3]?.Amenidades}} </td>
+     </tr>
+     <tr>
+      <td> <div class="d-flex justify-content-between"><span class="text-secustm text-start fw-semibold">M2</span><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-m2-circule-outline.svg" alt="Mi SVG feliz"/></div></td>
+      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle" style="max-width: 330px; word-wrap: break-word;">
+        <ul>
+          <li class="text-start" *ngIf="tableComparaItems[0]?.IdTipoUbicacion != 'TERRENO'">Construcción: {{tableComparaItems[0]?.m2CT.C}} </li>
+          <li class="text-start">Terreno: {{tableComparaItems[0]?.m2CT.T}} </li>
+        </ul>
+      </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">
+        <ul>
+          <li class="text-start" *ngIf="tableComparaItems[1]?.IdTipoUbicacion != 'TERRENO'">Construcción: {{tableComparaItems[1]?.m2CT.C}} </li>
+          <li class="text-start">Terreno: {{tableComparaItems[1]?.m2CT.T}} </li>
+        </ul>
+      </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">
+        <ul>
+          <li class="text-start" *ngIf="tableComparaItems[2]?.IdTipoUbicacion != 'TERRENO'">Construcción: {{tableComparaItems[2]?.m2CT.C}} </li>
+          <li class="text-start">Terreno: {{tableComparaItems[2]?.m2CT.T}} </li>
+        </ul>
+      </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">
+        <ul>
+          <li class="text-start" *ngIf="tableComparaItems[3]?.IdTipoUbicacion != 'TERRENO'">Construcción: {{tableComparaItems[3]?.m2CT.C}} </li>
+          <li class="text-start">Terreno: {{tableComparaItems[3]?.m2CT.T}} </li>
+        </ul>
+      </td>
+     </tr>
+     <tr>
+      <td> <div class="d-flex justify-content-between"><span class="text-secustm text-start fw-semibold">APARTADO</span><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-apartado-circule-outline.svg" alt="Mi SVG feliz"/></div></td>
+      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[0]?.Apartado | moneyViewNormal}} </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[1]?.Apartado | moneyViewNormal}} </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[2]?.Apartado | moneyViewNormal}} </td> 
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[3]?.Apartado | moneyViewNormal}} </td>
+     </tr>
+     <tr>
+      <td> <div class="d-flex justify-content-between"><span class="text-secustm text-start fw-semibold">PROMOCIONES</span><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-descuento-circule-outline.svg" alt="Mi SVG feliz"/></div></td>
+      <td class="bg-primary-select text-secondary text-center fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[0]?.Descuento}}% </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[1]?.Descuento}}% </td>
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[2]?.Descuento}}% </td> 
+      <td class="text-center text-secondary fw-semibold align-middle" style="max-width: 300px; word-wrap: break-word;">{{tableComparaItems[3]?.Descuento}}% </td>
      </tr>
      <tr>
       <td class="d-flex justify-content-between border-bottom-0" style="height: 30px !important;"></td>
@@ -358,7 +409,7 @@
       
       <div class="modal-body">
         <div class="row mb-2"><h1>{{modalItemSelected?.IdPrototipo}}</h1></div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-7 align-self-start">
             <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; margin: auto; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
           </div>
@@ -368,7 +419,28 @@
             <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-descuento.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Descuento}}%</span></div>
             <div class="d-flex justify-content-start align-items-center my-2"><img class="me-3" width="26px" height="26px" src = "../../../assets/sources/icons/🦆 icon-apartado.svg" alt="Mi SVG feliz"/><span class="text-dark text-start fw-semibold">{{modalItemSelected?.Apartado | moneyViewNormal}}</span></div>
           </div>
+        </div> -->
+
+
+        <div class="row m-1">
+          <div class="col-sm-6"> <!--Left side-->
+            <div class="bg-light" style="width: 13.5rem; height: 9rem; border-radius: 12px; background-image: url('../../../assets/sources/imgs/image-icon.jpg');"></div>
+          </div>
+          <div class="col-sm-6"> <!--Right side-->
+            <div class="row row-cols-2 justify-content-md-center">
+              <div class="col-4 m-1 bg-dark" style="height: 4.2rem; border-radius: 12px; background-image: url('../../../assets/sources/imgs/image-icon.jpg'); background-size: cover; background-position:center center;"></div>
+              <div class="col-4 m-1" style="height: 4.2rem; border-radius: 12px; background-image: url('../../../assets/sources/imgs/image-icon.jpg'); background-size: cover; background-position:center center;"></div>
+              <div class="col-4 m-1" style="height: 4.2rem; border-radius: 12px; background-image: url('../../../assets/sources/imgs/image-icon.jpg'); background-size: cover; background-position:center center;"></div>
+              <div class="col-4 m-1" style="height: 4.2rem; border-radius: 12px; background-image: url('../../../assets/sources/imgs/image-icon.jpg'); background-size: cover; background-position:center center;"></div>
+            </div>
+          </div>
         </div>
+
+          <div class="row m-2 mt-4">
+            <div class="col-1"><img class="me-3" width="25px" height="25px" src = "../../../assets/sources/icons/🦆 icon-zone-circule-outline.svg" alt="Mi SVG feliz"/></div>
+            <div class="col-10"><p class="fw-semibold mb-1">Ubicación</p><p class="text-primary" style="font-size: small;">https://maps.app.goo.gl/hfKmEpVeqMj1LPSV6</p></div>
+          </div>
+
       </div>
       <div class="modal-footer p-1">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -376,6 +448,81 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="preview-bottom" [ngClass]="{'preview-bottom-open': myCollapse || !slideLow, 'preview-bottom-semi-open': slideLow}"> -->
+<div class="preview-bottom" [@preview-open] = "myCollapse ? true : false || slideLow ? true : false" [@preview-semi-open] = "!slideLow ? true : false">
+  <button class="rise-up position-absolute top-0 start-50 translate-middle" (click)="showPreviewBttm()" *ngIf="myCollapse"><img class="mb-1" [ngClass]="{'rotate' : !slideLow}" src="../../../assets/sources/icons/🦆 icon-up-row.svg" alt=""></button>
+  <div @myInsertRemoveTrigger *ngIf="myCollapse" class="mx-2 my-3 mx-md-2 ms-md-5 my-md-2 mx-lg-4 my-lg-4 d-flex flex-wrap align-items-center">
+
+    <div class="card me-5 marg-previw-r border-0 shadow-sm mt-2 col-6 col-md-3 col-lg-2" style="border-radius: 8px; background-color: rgba(90, 136, 255, 0.10);">
+      <div class="card-body p-2 d-flex" style="align-items: center;">
+        <div class="rounded-circle border mx-2 text-primary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">1</div>
+        <h6 class="card-subtitle fw-bold text-primcustm" style="font-size: 12px; margin-top: 2px;">{{comparedItems[0].IdPrototipo}}<br><span class="me-2" style="font-size: 10px;">{{comparedItems[0].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[0].IdDesarrollador}}</span></h6>       
+      </div>
+    </div>
+    <div @myInsertRemoveHorz *ngIf="comparedItems[1]" class="card bg-light mt-2 border-0 shadow-sm col-6 col-md-3 col-lg-2" style="border-radius: 8px;">
+      <div class="card-body p-2 d-flex" style="align-items: center;">
+        <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">2</div>
+        <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[1].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[1].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[1].IdDesarrollador}}</span></h6>       
+      </div>
+    </div>
+    <!-- <div class="w-100"></div> -->
+    <div @myInsertRemoveHorz *ngIf="comparedItems[2]" class="card bg-light ms-3 mt-2 marg-previw-l-0 border-0 shadow-sm col-6 col-md-3 col-lg-2" style="border-radius: 8px;">
+      <div class="card-body p-2 d-flex" style="align-items: center;">
+        <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">3</div>
+        <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[2].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[2].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[2].IdDesarrollador}}</span></h6>       
+      </div>
+    </div>
+    <div @myInsertRemoveHorz *ngIf="comparedItems[3]" class="card bg-light ms-3 mt-2 marg-previw-l-0-xs marg-previw-l-0-lg border-0 shadow-sm col-6 col-md-3 col-lg-2" style="border-radius: 8px;">
+      <div class="card-body p-2 d-flex" style="align-items: center;">
+        <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">4</div>
+        <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[3].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[3].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[3].IdDesarrollador}}</span></h6>       
+      </div>
+    </div>
+
+    <!-- <div class="bg-danger row align-items-start">
+      <div class="card me-5 marg-previw-r border-0 shadow-sm mt-2 w-15 col-sm-3" style="width: 12rem; border-radius: 8px; background-color: rgba(90, 136, 255, 0.10);">
+        <div class="card-body p-2 d-flex" style="align-items: center;">
+          <div class="rounded-circle border mx-2 text-primary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">1</div>
+          <h6 class="card-subtitle fw-bold text-primcustm" style="font-size: 12px; margin-top: 2px;">{{comparedItems[0].IdPrototipo}}<br><span class="me-2" style="font-size: 10px;">{{comparedItems[0].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[0].IdDesarrollador}}</span></h6>       
+        </div>
+      </div>
+      <div @myInsertRemoveHorz *ngIf="comparedItems[1]" class="card bg-light ms-3 mt-2 marg-previw-l-0-xs border-0 shadow-sm w-15 col-sm-3" style="width: 12rem; border-radius: 8px;">
+        <div class="card-body p-2 d-flex" style="align-items: center;">
+          <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">2</div>
+          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[1].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[1].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[1].IdDesarrollador}}</span></h6>       
+        </div>
+      </div>
+      <div @myInsertRemoveHorz *ngIf="comparedItems[2]" class="card bg-light ms-3 mt-2 marg-previw-l-0 border-0 shadow-sm w-15 col-sm-3" style="width: 12rem; border-radius: 8px;">
+        <div class="card-body p-2 d-flex" style="align-items: center;">
+          <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">3</div>
+          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[2].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[2].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[2].IdDesarrollador}}</span></h6>       
+        </div>
+      </div>
+      <div @myInsertRemoveHorz *ngIf="comparedItems[3]" class="card bg-light ms-3 mt-2 marg-previw-l-0-xs marg-previw-l-0-lg border-0 shadow-sm w-15 col-sm-3" style="width: 12rem; border-radius: 8px;">
+        <div class="card-body p-2 d-flex" style="align-items: center;">
+          <div class="rounded-circle border mx-2 text-secondary text-center fw-bold" style="width: 18px; height: 18px; font-size: 10px;">4</div>
+          <h6 class="card-subtitle text-muted fw-bold text-secondary" style="font-size: 12px; margin-top: 2px;">{{comparedItems[3].IdPrototipo}} <br><span class="me-2" style="font-size: 10px;">{{comparedItems[3].IdDesarrollador=='EMPORIUM'? 'GRUPO EMPORIUM':comparedItems[3].IdDesarrollador}}</span></h6>       
+        </div>
+      </div>
+    </div> -->
+
+
+    <div class="no-remove">
+      <button class="btn btn-primary btn-sm ms-md-5 fw-semibold" (click)="scrollToSection('section1', false)" type="button" [ngClass]="{'disabled': comparedItems.length != 4}">Comparar</button> 
+      <button class="btn bg-transparent text-secondary btn-sm ms-md-2 fw-semibold" type="button" (click)="cleanSelection()">Limpiar</button>
+    </div>
+
+  </div>
+  <div class="d-grid gap-2 d-md-block remove"> <!-- BUSCAR KEYFRAME PARA APARECER/DESAPARECER XS -->
+    <button class="btn btn-primary btn-sm fw-semibold" (click)="scrollToSection('section1', false)" type="button" [ngClass]="{'disabled': comparedItems.length != 4}">Comparar</button> 
+    <button class="btn bg-transparent text-secondary btn-sm fw-semibold" type="button" (click)="cleanSelection()">Limpiar</button>
+  </div> 
+</div>
+
+
+
+
 
 <!-- Footer -->
 <!-- <footer id="footer" class="d-flex justify-content-between bg-light" style="height: auto;">

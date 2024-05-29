@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import * as bootstrap from 'bootstrap';
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UbicacionesService } from 'src/app/services/ubic/ubicaciones.service';
 
 @Component({
@@ -21,7 +21,8 @@ import { UbicacionesService } from 'src/app/services/ubic/ubicaciones.service';
     trigger('myInsertRemoveHorz', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('400ms', style({ opacity: 1, width: 192 })),
+        // animate('400ms', style({ opacity: 1, width: 206 })), 
+        animate('400ms', style({ opacity: 1, behavior: 'smooth' })), 
       ]),
       transition(':leave', [
         animate('100ms', style({ opacity: 0, width: -1 }))
@@ -57,6 +58,26 @@ import { UbicacionesService } from 'src/app/services/ubic/ubicaciones.service';
         animate('1300ms 900ms', style({ opacity: 1 })),
       ])
     ]),
+
+
+
+    trigger('preview-open', [
+      state('true', style({ maxHeight:300 })),
+      state('false', style({height:0 })),
+      transition('false <=> true', [
+        // style({ height:80, background: "red" }),
+        animate('300ms'),
+      ])
+    ]),
+    trigger('preview-semi-open', [
+      // state('true', style({})),
+      state('false', style({height:15 })),
+      transition('false <=> true', [
+        // style({ maxHeight:0}),
+        animate('300ms'),
+      ])
+    ]),
+
   ]
 })
 
@@ -65,7 +86,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 1,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "PUNTA DORADA",
+      Fraccionamiento: "PUNTA DORADA",
       IdDesarrollador: "EMPORIUM",
       IdNivel: "RESIDENCIAL",
       IdZona: "PONIENTE",
@@ -88,7 +109,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 2,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "LORETTA PARTICULAR",
+      Fraccionamiento: "LORETTA PARTICULAR",
       IdDesarrollador: "PARTICULAR",
       IdNivel: "RESIDENCIAL",
       IdZona: "PONIENTE",
@@ -111,7 +132,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 3,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "PUNTA CORAL",
+      Fraccionamiento: "PUNTA CORAL",
       IdDesarrollador: "EMPORIUM",
       IdNivel: "RESIDENCIAL",
       IdZona: "NOR PONIENTE",
@@ -134,7 +155,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 4,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "PUNTA CORAL",
+      Fraccionamiento: "PUNTA CORAL",
       IdDesarrollador: "EMPORIUM",
       IdNivel: "RESIDENCIAL",
       IdZona: "NOR PONIENTE",
@@ -157,7 +178,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 5,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "PUNTA CORAL",
+      Fraccionamiento: "PUNTA CORAL",
       IdDesarrollador: "EMPORIUM",
       IdNivel: "RESIDENCIAL",
       IdZona: "NOR PONIENTE",
@@ -180,7 +201,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 6,
       IdTipoUbicacion: "DEPARTAMENTO",
-      IdFraccionamiento: "TORRE DEPARTAMENTAL 2",
+      Fraccionamiento: "TORRE DEPARTAMENTAL 2",
       IdDesarrollador: "EMPORIUM",
       IdNivel: "RESIDENCIAL",
       IdZona: "NOR PONIENTE",
@@ -203,7 +224,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 7,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "XARAMA CASAS",
+      Fraccionamiento: "XARAMA CASAS",
       IdDesarrollador: "GARCAM",
       IdNivel: "RESIDENCIAL",
       IdZona: "PONIENTE",
@@ -226,7 +247,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 8,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "XARAMA CASAS",
+      Fraccionamiento: "XARAMA CASAS",
       IdDesarrollador: "ARGOVIA",
       IdNivel: "RESIDENCIAL",
       IdZona: "PONIENTE",
@@ -249,7 +270,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 9,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "ALDARES RES.",
+      Fraccionamiento: "ALDARES RES.",
       IdDesarrollador: "GRUPO SAN CRISTOBAL",
       IdNivel: "RESIDENCIAL",
       IdZona: "ORIENTE",
@@ -272,7 +293,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 10,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "PORTA ARVENA",
+      Fraccionamiento: "PORTA ARVENA",
       IdDesarrollador: "GRUPO SOLDI",
       IdNivel: "RESIDENCIAL",
       IdZona: "NOR PONIENTE",
@@ -295,7 +316,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 11,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "BEARA",
+      Fraccionamiento: "BEARA",
       IdDesarrollador: "ALKIMIA",
       IdNivel: "RESIDENCIAL",
       IdZona: "PONIENTE",
@@ -318,7 +339,7 @@ export class HomeComponent implements OnInit{
     {
       Id: 12,
       IdTipoUbicacion: "CASA",
-      IdFraccionamiento: "MAZARYK",
+      Fraccionamiento: "MAZARYK",
       IdDesarrollador: "GRUPO ABBA",
       IdNivel: "RESIDENCIAL",
       IdZona: "CENTRO",
@@ -351,10 +372,6 @@ export class HomeComponent implements OnInit{
 
   query_filtration_group:any = {}
   query_multi_filt_fracc:any = [
-    // ['IdFraccionamiento', false],
-    // ['IdFraccionamiento', false],
-    // ['IdFraccionamiento', false],
-    // ['IdFraccionamiento', false],
   ]
   query_multi_desrr:any = [
     // ['IdDesarrollador', false],
@@ -387,6 +404,7 @@ export class HomeComponent implements OnInit{
   ]
 
   myCollapse = false
+  slideLow = false
   myScroll:any
 
   modalItemSelected:any
@@ -405,14 +423,16 @@ export class HomeComponent implements OnInit{
       this.filter_data = [...this.DB_DATA] //Una copia de la data
 
       //Traer los financiamientos y amenidades de cada registro
-      for(let [index, r] of this.filter_data.entries()){
-        this.ubicService.getFinanciamientos({'Fraccionamiento': r.IdFraccionamiento}).subscribe((results:any)=>{
-          this.filter_data[index].Financiamientos = results
-        })
-        this.ubicService.getAmenidades({'Fraccionamiento': r.IdFraccionamiento}).subscribe((results:any)=>{
-          this.filter_data[index].Amenidades = results
-        })
-      }
+      // for(let [index, r] of this.filter_data.entries()){
+      //   this.ubicService.getFinanciamientos({'Fraccionamiento': r.Fraccionamiento}).subscribe((results:any)=>{
+      //     // console.log(results);
+      //     this.filter_data[index].Financiamientos = results
+      //   })
+      //   // this.ubicService.getAmenidades({'IdFraccionamiento': r.IdFracc}).subscribe((results:any)=>{
+      //   //   console.log(r.Fraccionamiento, results?.amenidades);
+      //   //   this.filter_data[index].Amenidades = results?.amenidades
+      //   // })
+      // }
       
       // this.emporium_list = this.DB_DATA.filter(models => models.IdDesarrollador == "EMPORIUM") //Para resultados EMPORIUM
       // this.resultsEMP = [...this.emporium_list]
@@ -519,11 +539,11 @@ export class HomeComponent implements OnInit{
   }
   // checkBoxValue(event:any){
   //   if(event.target.checked && event.target.defaultValue){
-  //     this.query_multi_filt_fracc.Fraccionamientos.push({IdFraccionamiento:event.target.defaultValue.toUpperCase()})
+  //     this.query_multi_filt_fracc.Fraccionamientos.push({Fraccionamiento:event.target.defaultValue.toUpperCase()})
   //   }else if(!event.target.checked){ 
   //     console.log(event.target.defaultValue.toUpperCase());
   //     for(var i = 0; i < this.query_multi_filt_fracc.Fraccionamientos.length; i++){
-  //       if (this.query_multi_filt_fracc.Fraccionamientos[i]['IdFraccionamiento'] == event.target.defaultValue.toUpperCase()){
+  //       if (this.query_multi_filt_fracc.Fraccionamientos[i]['Fraccionamiento'] == event.target.defaultValue.toUpperCase()){
   //         // console.log(this.query_multi_filt_fracc.Fraccionamientos[i], i)
   //         // const remove = this.query_multi_filt_fracc.Fraccionamientos.slice(i)
   //         console.log(this.query_multi_filt_fracc.Fraccionamientos);
@@ -610,7 +630,7 @@ export class HomeComponent implements OnInit{
     // console.log(this.query_multi_filt_fracc)
     // console.log(this.query_multi_desrr)
     const query_modificated = Object.entries(this.query_filtration_group);
-    // console.log(query_modificated);
+    console.log(query_modificated);
 
     let wholeData = this.filterItems(this.filter_data,query_modificated);
     console.log(wholeData)
@@ -641,7 +661,7 @@ export class HomeComponent implements OnInit{
     // let FraccionmtsData:any[] = []
     // const set = new Set();
     // for(let fr of wholeData){ 
-    //   FraccionmtsData.push(['IdFraccionamiento',false,fr.IdFraccionamiento]) 
+    //   FraccionmtsData.push(['Fraccionamiento',false,fr.Fraccionamiento]) 
     // }
     // let FiltrosFracc = FraccionmtsData.filter(
     //   (valor, indice, self) =>
@@ -679,7 +699,7 @@ export class HomeComponent implements OnInit{
     return data.filter((e:any)=>e.Precio>=filters[0][1] && e.Precio<=filters[1][1] )
   }
 
-  filterItemsOR(data:any, filters:any) { //Filtra la data que le pasemos y en cada iteración revisa si alguno coincide en campo 'IdFraccionamiento' con el value de mis filtros seleccionados por checkbox
+  filterItemsOR(data:any, filters:any) { //Filtra la data que le pasemos y en cada iteración revisa si alguno coincide en campo 'Fraccionamiento' con el value de mis filtros seleccionados por checkbox
     return data.filter( (e:any) => {
       for(var i = 0; i < filters.length; i++){
         if (e[filters[i][0]] === filters[i][1]) {return true}
@@ -733,6 +753,7 @@ export class HomeComponent implements OnInit{
 
   cleanSelection() { //Desactivar todos los checkbox y limpiar comparedItems  
     this.myCollapse = false; //Esconder preview por el ngIf 
+    this.slideLow = false;
     this.comparedItems = [];
     this.resultsEMP.map((r:any)=>{
       r.Active = false
@@ -743,13 +764,21 @@ export class HomeComponent implements OnInit{
 
     this.disableCheckCom = this.resultsEMP.every((objeto:any) => objeto.Active === false); //Valida si algún check de resultEMP fue activado  (funcional para evitar que no se seleccione un item-emporium)
       // console.log(this.disableCheckCom)
+      this.scrollToSection('sectionTop', true)
   }
 
-  scrollToSection(sectionId: string) {
+  scrollToSection(sectionId: string, clean:boolean) {
     const section = document.getElementById(sectionId);
-    if (section) {
+    console.log(section)
+    if (section && !clean) {
       this.tableComparaItems = [...this.comparedItems] // Se copean los datos del preview, de los items seleccionados de main-list
-      console.log(this.tableComparaItems)
+      this.slideLow = true;
+
+      setTimeout(()=>{
+        section.scrollIntoView({ behavior: 'smooth' });
+      },100)
+
+    }else if(section && clean){
 
       setTimeout(()=>{
         section.scrollIntoView({ behavior: 'smooth' });
@@ -761,6 +790,11 @@ export class HomeComponent implements OnInit{
   selectInfoModal(item:any){
     this.modalItemSelected = item
     console.log(this.modalItemSelected)
+  }
+
+  showPreviewBttm(){
+    this.slideLow ? this.slideLow = false : this.slideLow = true;
+    console.log(this.slideLow)
   }
 
 }

@@ -1,0 +1,789 @@
+<div  style="margin: 10px 45px;">
+    <div class="overflow-hidden">
+      <div class="row mt-4 align-items-center">
+        <div class="col-3 ms-0">
+          <input type="email" class="form-control shadow-none" id="exampleFormControlInput1" placeholder="Buscar por modelo o fraccionamiento" #txtSearch
+            (keyup)="buscarItem(txtSearch.value)">
+        </div>
+        <div class="col-7">
+          <div class="d-flex scroll-x justify-content-center">
+            <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              VIVIENDA
+              <img class="mx-1" src="../../assets/sources/icons/🦆 icon-filter.svg" alt="Mi SVG feliz" />
+            </button>
+            <ul class="dropdown-menu shadow border-0" aria-labelledby="dropdownMenuButton1">
+              <li [ngClass]="{'bg-primary': tipoUbic === 'casa'}"><a class="dropdown-item text-secondary fw-semibold" (click)="setAllFilters('casa')">Casas</a></li>
+              <li [ngClass]="{'bg-primary': tipoUbic === 'departamento'}"><a class="dropdown-item text-secondary fw-semibold" (click)="setAllFilters('departamento')">Departamentos</a></li>
+              <li [ngClass]="{'bg-primary': tipoUbic === 'terreno'}"><a class="dropdown-item text-secondary fw-semibold" (click)="setAllFilters('terreno')">Terrenos</a></li>
+            </ul>
+    
+            <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button"
+              id="dropdownMenuBut" data-bs-toggle="dropdown" aria-expanded="false"
+              [attr.disabled]="statusDisabled? true : null">
+              DESARROLLADORA
+              <img class="ms-2" src="../../../assets/sources/icons/🦆 icon-filter.svg" alt="Mi SVG feliz" />
+            </button>
+            <ul class="dropdown-menu shadow" style="border: none !important;" aria-labelledby="dropdownMenuBut">
+              <ul *ngFor="let d of query_multi_desrr" class="list-group" style="--bs-list-group-border-color:none">
+                <li class="list-group-item text-secondary fw-semibold">
+                  <input class="form-check-input me-1" type="checkbox" value="emporium" aria-label="..." [(ngModel)]="d[1]"
+                    (change)="d[1] ? d[1] = d[2] : d[1] = false" (change)="onClickDesrr($event)">
+                  {{d[2] | titlecase}}
+                </li>
+              </ul>
+            </ul>
+    
+            <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button"
+              id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"
+              [attr.disabled]="statusDisabled? true : null">
+              FRACCIONAMIENTO
+              <img class="ms-2" src="../../../assets/sources/icons/🦆 icon-filter.svg" alt="Mi SVG feliz" />
+            </button>
+            <ul class="dropdown-menu shadow" style="border: none !important;" aria-labelledby="dropdownMenuClickableInside">
+              <ul *ngFor="let f of query_multi_filt_fracc" class="list-group" style="--bs-list-group-border-color:none">
+                <li class="list-group-item text-secondary fw-semibold">
+                  <input class="form-check-input me-1" type="checkbox" value="punta dorada" aria-label="..."
+                    [(ngModel)]="f[1]" (change)="f[1] ? f[1] = f[2] : f[1] = false" (change)="onClickFracc($event)">
+                  {{f[2] | titlecase}}
+                </li>
+              </ul>
+            </ul>
+    
+          </div>
+        </div>
+        <div class="col-2 text-end pe-5">
+          <button type="button" class="btn btn-primary dropdown-toggle fw-semibold" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownAdd">
+            Agregar +
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end shadow" style="border: none !important;" aria-labelledby="dropdownAdd">
+            <li><a class="dropdown-item text-secondary fw-semibold text-start" data-bs-toggle="modal" data-bs-target="#addModal"
+                (click)="cleanMonths()">Registro</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-secondary fw-semibold text-start" data-bs-toggle="modal" data-bs-target="#modalUtilietes"
+                (click)="setUtilitiesM('Fraccionamiento', false)">Fraccionamiento</a></li>
+            <li><a class="dropdown-item text-secondary fw-semibold text-start" data-bs-toggle="modal" data-bs-target="#modalUtilietes"
+                (click)="setUtilitiesM('Desarrollador', false)">Desarrollador</a></li>
+            <li><a class="dropdown-item text-secondary fw-semibold text-start" data-bs-toggle="modal" data-bs-target="#modalUtilietes"
+                (click)="setUtilitiesM('Prototipo', false)">Modelo/Prototipo</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+        
+    <!-- <div class="btn-group" role="group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Agregar +
+      </button>
+      <ul class="dropdown-menu bg-dark" multiple style=" border: none !important;">
+        <li><button class="btn btn-primary col-12 my-1" data-bs-toggle="modal" data-bs-target="#addModal" (click)="cleanMonths()">Registro</button></li>
+        <li><button class="btn btn-primary col-12 my-1" data-bs-toggle="modal" data-bs-target="#modalUtilietes" (click)="setUtilitiesM('Fraccionamiento', false)">Fraccionamiento</button></li>
+        <li><button class="btn btn-primary col-12 my-1" data-bs-toggle="modal" data-bs-target="#modalUtilietes" (click)="setUtilitiesM('Desarrollador', false)">Desarrollador</button></li>
+        <li><button class="btn btn-primary col-12 my-1" data-bs-toggle="modal" data-bs-target="#modalUtilietes" (click)="setUtilitiesM('Prototipo', false)">Modelo/Prototipo</button></li>
+      </ul>
+    </div> -->
+
+    <!-- <button class="btn btn-secondary" (click)="filtrarDatos()">Filtrar</button> -->
+
+    <!-- <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button" id="dropdownMenuBut" data-bs-toggle="dropdown" aria-expanded="false" [attr.disabled]="statusDisabled? true : null">
+      DESARROLLADORA 
+      <img class="mx-1" src = "../../../assets/sources/icons/🦆 icon-developer.svg" alt="Mi SVG feliz"/>
+      <img class="ms-2" src = "../../../assets/sources/icons/🦆 icon-dropdown.svg" alt="Mi SVG feliz"/>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuBut">
+      <ul *ngFor="let d of query_multi_desrr" class="list-group" style="--bs-list-group-border-color:none">
+        <li class="list-group-item">
+          <input class="form-check-input me-1" type="checkbox" value="emporium" aria-label="..." [(ngModel)]="d[1]" (change)="d[1] ? d[1] = d[2] : d[1] = false" (change)="onClickDesrr($event)">
+          {{d[2] | titlecase}}
+        </li>
+      </ul>
+    </ul>
+    <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3 border-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" [attr.disabled]="statusDisabled? true : null">
+      FRACCIONAM... 
+      <img class="mx-1" src = "../../../assets/sources/icons/🦆 icon-fraccionmt.svg" alt="Mi SVG feliz"/>
+      <img class="ms-2" src = "../../../assets/sources/icons/🦆 icon-dropdown.svg" alt="Mi SVG feliz"/>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+      <ul *ngFor="let f of query_multi_filt_fracc" class="list-group" style="--bs-list-group-border-color:none">
+        <li class="list-group-item">
+          <input class="form-check-input me-1" type="checkbox" value="punta dorada" aria-label="..." [(ngModel)]="f[1]" (change)="f[1] ? f[1] = f[2] : f[1] = false" (change)="onClickFracc($event)">
+          {{f[2] | titlecase}}
+        </li>
+      </ul>
+    </ul>
+    <button class="btn btn-filter btn-sm dropdown-toggle d-flex-center ms-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      VIVIENDA 
+      <img class="mx-1" src = "../../../assets/sources/icons/🦆 icon-house.svg" alt="Mi SVG feliz"/>
+      <img class="ms-2" src = "../../../assets/sources/icons/🦆 icon-dropdown.svg" alt="Mi SVG feliz"/>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" (click)="setAllFilters('casa')">Casas</a></li>
+      <li><a class="dropdown-item" (click)="setAllFilters('departamento')">Departamentos</a></li>
+      <li><a class="dropdown-item" (click)="setAllFilters('terreno')">Terrenos</a></li>
+    </ul> -->
+
+    <!-- <button class="btn btn-success" (click)="appearToast({message:'Message toast', title:'Título toast', type:'success'})">Active toast</button>
+    <button class="btn btn-warning" (click)="appearToast({message:'Message toast', title:'Título toast', type:'warning'})">Active toast</button>
+    <button class="btn btn-danger" (click)="appearToast({message:'Message toast', title:'Título toast', type:'error'})">Active toast</button> -->
+
+    <div>
+        <ul class="list-group margin_results m-5" style="--bs-list-group-border-color:none">
+            <div class="d-flex justify-content-between">
+                <h6 style="font-size: 13px;" class="my-4 text-secondary"><span class="text-secustm">MODELOS</span> ACTIVOS</h6>
+            </div>
+    
+            <div @listAppear *ngFor="let model of DATA_ACTIVE | filtroPag:page:search as total; let indice=index"
+                class="row d-flex list-group-item mb-3 li-list align-items-center">
+                <div style="font-size: 0.9rem;"
+                    class="col-lg-2 col-md-2 col-sm-2 col-3 text-start fw-semibold text-secondary align-self-center marg-l-2 ps-5">
+                    <img class="me-3" width="34px" height="34px"
+                        src="../../../assets/sources/icons/🦆 icon-emporium-circule.svg" alt="Mi SVG feliz" />
+                    <span class="d-inline-block text-truncate" style="max-width: 60px;">{{model.IdPrototipo}}</span>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-3 margin-l text-start fw-semibold text-secondary align-self-center lh-1   d-inline-block text-truncate disp-none-mx-4"
+                    style="max-width: 200px;">{{model.IdFraccionamiento | titlecase}} <br><span
+                        class="fw-semibold text-secustm" style="font-size: small;">{{model.IdDesarrollador=='EMPORIUM'?
+                        'Grupo Emporium':model.IdDesarrollador}}</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-5 col-7 margin-l text-start fw-semibold text-secondary align-self-center lh-1 ps-5">
+                    {{model.Precio | moneyViewList}} / {{model.Apartado | moneyViewList}}<br><span
+                        class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span></div>
+                <div class="col-lg-2 col-md-3 text-center fw-bold text-secondary align-self-center disp-none p-0"><span
+                        class="badge bg-secondary fw-semibold">{{model.TiempoEntrega}}</span></div>
+                <div class="col-lg-2 col-md-1 text-center fw-bold text-secondary align-self-center disp-none">
+                    <button type="button" class="btn btn-secondary btn-sm pb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setUpdateUbic(model)"><img src="../../assets/sources/icons/🦆 icon-edit.svg" width="18px" height="18px" alt=""></button>
+                    <button type="button" class="btn btn-secondary btn-sm pb-2 ms-2" data-bs-toggle="modal" data-bs-target="#hideModal" (click)="setHideUbic(model)"><img src="../../assets/sources/icons/🦆 icon-hide.svg" width="18px" height="18px" alt=""></button>
+                </div>
+            </div>
+            <h2 class="text-center text-secustm my-2" style="font-size: 18px;" *ngIf="(DATA_ACTIVE | filtroPag:page:search).length === 0"> <img class="col-12" width="100px" height="100px" src="../../../assets/sources/icons/🦆 icon-not-found.svg" alt=""> <br> No hay registros que coincidan</h2>
+        </ul>
+    </div>
+
+    <nav aria-label="...">
+      <ul class="pagination pagination-sm justify-content-center">
+        <button class="btn btn-sm bg-golden" (click)="prevPage()">
+          <img width="14px" height="14px" class="mb-1" src="../../assets/sources/icons/🦆 icon-back-double-row.svg" alt="">
+        </button>
+        &nbsp;
+        &nbsp;
+        <!-- <button class="btn btn-sm bg-secondary text-light mx-1" style="--bs-bg-opacity: .5;">1</button>
+        <button class="btn btn-sm bg-secondary text-light mx-1" style="--bs-bg-opacity: .5;">2</button>
+        <button class="btn btn-sm bg-secondary text-light mx-1" style="--bs-bg-opacity: .5;">3</button> -->
+        <!-- numbers -->
+        <button class="btn btn-sm bg-golden" (click)="nextPage()" [attr.disabled]="(DATA_ACTIVE | filtroPag:page:search).length === 0 ? true: null">
+          <img width="14px" height="14px" class="mb-1" src="../../assets/sources/icons/🦆 icon-next-double-row.svg" alt="">
+        </button>
+      </ul>
+    </nav>
+
+    <div>
+      <ul class="list-group margin_results m-5" style="--bs-list-group-border-color:none">
+          <div class="d-flex justify-content-between my-2">
+              <h6 style="font-size: 13px;" class="my-4 text-secondary"><span class="text-secustm">MODELOS</span> INACTIVOS</h6>
+          </div>
+  
+          <div @listAppear *ngFor="let model of DATA_INACTIVE; let indice=index"
+              class="row d-flex list-group-item mb-3 li-list align-items-center">
+              <div style="font-size: 0.9rem;"
+                  class="col-lg-2 col-md-2 col-sm-2 col-3 text-start fw-semibold text-secondary align-self-center marg-l-2 ps-5 disabledLoad">
+                  <img class="me-3" width="34px" height="34px"
+                      src="../../../assets/sources/icons/🦆 icon-emporium-circule.svg" alt="Mi SVG feliz" />
+                  <span class="d-inline-block text-truncate" style="max-width: 60px;">{{model.IdPrototipo}}</span>
+              </div>
+              <div class="col-lg-3 col-md-2 col-sm-3 margin-l text-start fw-semibold text-secondary align-self-center lh-1   d-inline-block text-truncate disp-none-mx-4 disabledLoad"
+                  style="max-width: 200px;">{{model.IdFraccionamiento | titlecase}} <br><span
+                      class="fw-semibold text-secustm" style="font-size: small;">{{model.IdDesarrollador=='EMPORIUM'?
+                      'Grupo Emporium':model.IdDesarrollador}}</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-5 col-7 margin-l text-start fw-semibold text-secondary align-self-center lh-1 ps-5 disabledLoad">
+                  {{model.Precio | moneyViewList}} / {{model.Apartado | moneyViewList}}<br><span
+                      class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span></div>
+              <div class="col-lg-2 col-md-3 text-center fw-bold text-secondary align-self-center disp-none p-0 disabledLoad"><span
+                      class="badge bg-secondary fw-semibold">{{model.TiempoEntrega}}</span></div>
+              <div class="col-lg-2 col-md-1 text-center fw-bold text-secondary align-self-center disp-none">
+                  <button type="button" class="btn btn-secondary btn-sm pb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setUpdateUbic(model)"><img src="../../assets/sources/icons/🦆 icon-edit.svg" width="18px" height="18px" alt=""></button>
+                  <button type="button" class="btn btn-secondary btn-sm pb-2 ms-2" data-bs-toggle="modal" data-bs-target="#showModal" (click)="setShowUbic(model)"><img src="../../assets/sources/icons/🦆 icon-hide.svg" width="18px" height="18px" alt=""></button>
+              </div>
+          </div>
+
+      </ul>
+  </div>
+
+  <!-- <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-4">
+      <label for="validationServer01" class="form-label">First name</label>
+      <input type="text" class="form-control" id="validationServer01" name="firstName">
+      <div *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched" class="invalid-feedback">
+        First name is required.
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label for="validationServer02" class="form-label">Last name</label>
+      <input type="text" class="form-control" id="validationServer02" name="lastName">
+      <div *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched" class="invalid-feedback">
+        Last name is required.
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit" [disabled]="myForm.invalid">Submit form</button>
+    </div>
+  </form> -->
+
+</div>
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" aria-hidden="true" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header d-inline px-4"> <!--[ngClass]="{'disabledLoad': sendingLoad}"-->
+
+        <h1 class="modal-title fs-5 m-3" id="exampleModalLabel">AGREGAR REGISTRO</h1>
+
+        <div class="row align-items-center li-list"> <!-- PREVIEW UBICACION ROW -->
+          <div class="col placeholder-glow">
+            <span *ngIf="!newModalData.IdPrototipo" class="placeholder col-6"></span>
+            <img *ngIf="newModalData.IdPrototipo && newModalData.IdDesarrollador == 'EMPORIUM'" class="me-2" width="34px" height="34px" src = "../../../assets/sources/icons/🦆 icon-emporium-circule.svg" alt="Mi SVG feliz"/>
+            <span *ngIf="newModalData.IdPrototipo" class="text-start fw-semibold text-secondary ms-3">{{newModalData.IdPrototipo}}</span>
+          </div>
+          <div class="col d-flex-row placeholder-glow">
+            <span *ngIf="!newModalData.IdFraccionamiento" class="placeholder col-8"></span>
+            <span *ngIf="newModalData.IdFraccionamiento" class="text-start fw-semibold text-secondary">{{newModalData.IdFraccionamiento  | titlecase}}</span>
+            <span *ngIf="!newModalData.IdDesarrollador" class="placeholder col-4 bg-secondary mt-1"></span>
+            <span *ngIf="newModalData.IdDesarrollador" class="fw-semibold text-secustm" style="font-size: small;">{{newModalData.IdDesarrollador}}</span>
+          </div>
+          <div class="col d-flex-row placeholder-glow">
+            <span *ngIf="!newModalData.Precio" class="placeholder col-8"></span>
+            <span *ngIf="newModalData.Precio || newModalData.Apartado" class="text-start fw-semibold text-secondary">{{newModalData.Precio | moneyViewList}} / {{newModalData.Apartado | moneyViewList}}</span>
+            <span *ngIf="!newModalData.Precio" class="placeholder col-4 bg-secondary mt-1"></span>
+            <span *ngIf="newModalData.Precio || newModalData.Apartado" class="fw-semibold text-secustm" style="font-size: small;">Precio - Apartado</span>
+          </div>
+          <div class="col placeholder-glow">
+            <span *ngIf="!newModalData.TiempoEntrega" class="placeholder col-10"></span>
+            <span *ngIf="newModalData.TiempoEntrega" class="badge bg-golden fw-semibold col-10">{{newModalData.TiempoEntrega}}</span>
+          </div>
+          <div class="col d-flex justify-content-center placeholder-glow">
+            <span *ngIf="!newModalData.IdTipoUbicacion" class="placeholder col-6 mx-1"></span>
+            <img class="" *ngIf="newModalData.IdTipoUbicacion === 'CASA' " src = "../../../assets/sources/icons/🦆 icon-house-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdTipoUbicacion === 'TERRENO' " src = "../../../assets/sources/icons/🦆 icon-land-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdTipoUbicacion === 'DEPARTAMENTO' " src = "../../../assets/sources/icons/🦆 icon-depart_circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'PONIENTE' " src = "../../../assets/sources/icons/🦆 icon-west-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'ORIENTE' " src = "../../../assets/sources/icons/🦆 icon-east-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'NOR PONIENTE' " src = "../../../assets/sources/icons/🦆 icon-nortw-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'SUR PONIENTE' " src = "../../../assets/sources/icons/🦆 icon-nortw-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'SUR' " src = "../../../assets/sources/icons/🦆 icon-south-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'NORTE' " src = "../../../assets/sources/icons/🦆 icon-nort-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.IdZona == 'CENTRO' " src = "../../../assets/sources/icons/🦆 icon-center-circule-outline.svg" alt="Mi SVG feliz"/>
+            <img class="" *ngIf="newModalData.Terraza" src = "../../../assets/sources/icons/🦆 icon-roof-circule-outline.svg" alt="Mi SVG feliz"/> 
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body" [ngClass]="{'disabledLoad': sendingLoad}">
+
+        <div class="container-fluid" [formGroup]="formulario">
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Tipo vivienda</label>
+              <select id="tipoVivienda" class="form-select" formControlName="tipoVivienda" [(ngModel)]="newModalData.IdTipoUbicacion" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('tipoVivienda') }">
+                <option value="CASA">CASA</option>
+                <option value="DEPARTAMENTO">DEPARTAMENTO</option>
+                <option value="TERRENO">TERRENO</option>
+              </select>
+              <div *ngIf="campoEsInvalido('tipoVivienda')" class="invalid-feedback">
+                Debes seleccionar un tipo de vivienda.
+              </div>
+              <!-- <input type="email" [(ngModel)]="newModalData." class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Fraccionamiento</label> <button class="btn btn-sm btn-sm-custom btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#modalUtilietes" (click)="setUtilitiesM('Fraccionamiento', true)">+</button>
+              <select id="disabledSelect" class="form-select" formControlName="fraccionamiento" [(ngModel)]="newModalData.IdFraccionamiento" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('fraccionamiento') }">
+                <option value="">Selecciona</option>
+                <!-- <option class=""><button type="button" class="btn btn-primary btn-sm">+</button>Agregar nuevo</option> -->
+                <option *ngFor="let f of this.inputsData.Fraccionamientos">{{f.Descripcion}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Desarrollador</label> <button class="btn btn-sm btn-sm-custom btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#modalUtilietes" (click)="setUtilitiesM('Desarrollador', true)">+</button>
+              <select id="disabledSelect" class="form-select" formControlName="desarrollador" [(ngModel)]="newModalData.IdDesarrollador" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('desarrollador') }">
+                <option value="">Selecciona</option>
+                <option *ngFor="let d of this.inputsData.Desarrolladores">{{d.Descripcion}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Nivel vivienda</label>
+              <select id="disabledSelect" class="form-select" formControlName="nivel" [(ngModel)]="newModalData.IdNivel" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('nivel') }">
+                <option value="">Selecciona</option>
+                <option>BAJO</option>
+                <option>MEDIO</option>
+                <option>MEDIO RESIDENCIAL</option>
+                <option>RESIDENCIAL</option>
+                <option>RESIDENCIAL PLUS</option>
+              </select>
+            </div>
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Zona</label>
+              <select id="disabledSelect" class="form-select" formControlName="zona" [(ngModel)]="newModalData.IdZona" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('zona') }">
+                <option value="">Selecciona</option>
+                <option *ngFor="let z of this.inputsData.Zonas">{{z.Descripcion}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Dirección</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData?.Ubicacion" formControlName="ubicacion" [(ngModel)]="newModalData.Ubicacion" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('ubicacion') }">
+            </div>
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Modelo</label> <button class="btn btn-sm btn-sm-custom btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#modalUtilietes" (click)="setUtilitiesM('Prototipo', true)">+</button>
+              <select id="disabledSelect" class="form-select" formControlName="prototipo" [(ngModel)]="newModalData.IdPrototipo" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('prototipo') }">
+                <option value="">Selecciona</option>
+                <option *ngFor="let m of this.inputsData.Modelos">{{m.Descripcion}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">M2</label>
+              <div class="input-group">
+                <span class="input-group-text">T:</span>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData?.m2T" formControlName="terreno" [(ngModel)]="newModalData.m2T" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('terreno') }">
+                <span class="input-group-text">C:</span>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData.IdTipoUbicacion == 'TERRENO'? 0 : '' " formControlName="construccion" [(ngModel)]="newModalData.m2C" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('construccion') }">
+              </div> 
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Habitaciones</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData.IdTipoUbicacion == 'TERRENO'? 0 : '' " formControlName="habitaciones" [(ngModel)]="newModalData.Habitaciones" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null " [ngClass]="{ 'is-invalid': campoEsInvalido('habitaciones') }">
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Baños</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData.IdTipoUbicacion == 'TERRENO'? 0 : '' " formControlName="banos" [(ngModel)]="newModalData.Banos" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null " [ngClass]="{ 'is-invalid': campoEsInvalido('banos') }">
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Parking</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData.IdTipoUbicacion == 'TERRENO'? 0 : '' " formControlName="parking" [(ngModel)]="newModalData.Parking" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null " [ngClass]="{ 'is-invalid': campoEsInvalido('parking') }">
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Terraza</label>
+              <div class="form-check form-switch"><input class="form-check-input lg" type="checkbox" role="switch" id="flexSwitchCheckDefault" [value]="newModalData?.Terraza" formControlName="terraza" [(ngModel)]="newModalData.Terraza" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null "></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Precio</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" [value]="newModalData?.Precio" formControlName="precio" [(ngModel)]="newModalData.Precio" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('precio') }">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Apartado</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" [value]="newModalData?.Apartado" formControlName="apartado" [(ngModel)]="newModalData.Apartado" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('apartado') }">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Enganche</label>
+              <div class="input-group mb-3">
+                <input type="number" class="form-control" maxlength="3" max="100" aria-label="Amount (to the nearest dollar)" [value]="newModalData?.Enganche" formControlName="enganche" [(ngModel)]="newModalData.Enganche" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('enganche') }">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Descuento</label>
+              <div class="input-group mb-3">
+                <input type="number" class="form-control" maxlength="3" max="100" aria-label="Amount (to the nearest dollar)" [value]="newModalData?.Descuento" formControlName="descuento" [(ngModel)]="newModalData.Descuento" [attr.disabled]="sendingLoad ? true : null" [ngClass]="{ 'is-invalid': campoEsInvalido('descuento') }">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+            <!-- <div class="col">
+              <label for="exampleInputEmail1" class="form-label">Tiempo de entrega</label>
+              <div class="d-flex">
+                <input type="text" class="form-control me-3" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="newModalData?.TiempoEntrega" [(ngModel)]="newModalData.TiempoEntrega">
+                <button class="btn btn-primary pt-0" type="submit"><img src="../../assets/sources/icons/🦆 icon-calendar.svg" width="18px" height="18px"></button>
+              </div>
+            </div> -->
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-2"><label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Tiempo entrega</label></div>
+            <div class="col-2">
+              <select id="yearSelect" formControlName="year" [(ngModel)]="monthsYear" class="form-select" [attr.disabled]="sendingLoad ? true : null">
+                <option *ngFor="let year of monthsFeatures.yearsArray">{{year}}</option>
+                <!-- <option>2025</option> -->
+              </select>
+            </div>
+          </div>
+          <div class="row m-4 align-items-center justify-content-around">
+            <div *ngFor="let m of monthsFeatures.monthsArray ; index as index" class="col-1 btn fw-semibold text-secustm fs-small square" (click)="selectMonth(index, m, newModalData)" [ngClass]="{'mth-select': m.selected === true, 'mth-range': m.rango === true && !m.selected, 'unsend': newModalData.TiempoEntrega == '' && formularioEnviado===true}" [attr.disabled]="sendingLoad ? true : null">{{m.mes}}</div>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <!-- <button class="btn btn-primary" type="button" (click)="setInmediatTime(newModalData)" [attr.disabled]="sendingLoad ? true : null">INMEDIATA</button> -->
+            <!-- Se agregó este buttton-checkbox nuevo -->
+            <input type="checkbox" class="btn-check" id="btn-check-outlined" (click)="setInmediatTime(newModalData)" [attr.disabled]="sendingLoad ? true : null" autocomplete="off" [attr.checked]="newModalData?.TiempoEntrega == 'INMEDIATA'? true: null" >
+            <label class="btn btn-outline-primary fw-semibold" for="btn-check-outlined" [ngClass]="{'btn-outline-danger': newModalData.TiempoEntrega == '' && formularioEnviado===true}">INMEDIATA</label><br>
+          </div>
+
+          <hr>
+
+          <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Acabados especiales</label>
+          <div class="d-flex">
+            <input type="text" class="form-control me-3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="acabados" [(ngModel)]="appenAcabEs" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null "> <button class="btn btn-primary" type="submit" (click)="addAcabEsp(newModalData?.AcabadosEspeciales)" [attr.disabled]="sendingLoad ? true : newModalData.IdTipoUbicacion == 'TERRENO'? true : null"><img class="mb-1" src="../../assets/sources/icons/🦆 icon-add.svg" width="18px" height="18px"></button>
+          </div>
+          <div class="d-flex flex-wrap p-4">
+            <span class="badge rounded bg-primary ps-2 pe-1 text-light mx-1 mb-1" *ngFor="let f of newModalData?.AcabadosEspeciales; index as index">{{f}} <button class="btn-delete" (click)="removeAcabEsp(newModalData?.AcabadosEspeciales, index)"><img src="../../assets/sources/icons/🦆 icon-close-white.svg" width="10px" height="10px" alt=""></button></span>
+          </div>
+
+          <!-- <hr>
+
+          <label for="exampleInputEmail1" class="form-label">Amenidades</label>
+          <div class="d-flex">
+            <input type="text" class="form-control me-3" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="appenAmenid"> <button class="btn btn-primary" type="submit" (click)="addAmenid(newModalData?.Amenidades)"> <img src="../../assets/sources/icons/🦆 icon-add.svg" width="18px" height="18px"></button>
+          </div>
+          <div class="d-flex flex-wrap p-4">
+            <span class="badge rounded-pill bg-primary ps-2 pe-1 text-light mx-1" *ngFor="let a of newModalData?.Amenidades; index as index">{{a}} <button class="btn-delete" (click)="removeAmenid(newModalData?.Amenidades, index)"></button></span>
+          </div> -->
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cleanMonths()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click)="postUbicacion()" [attr.disabled]="sendingLoad ? true : null">
+          <span *ngIf="!sendingLoad">Guardar</span>
+
+          <span *ngIf="sendingLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="sendingLoad"> Subiendo...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h1 class="modal-title fs-5 m-3 mb-4" id="staticBackdropLabel">EDITAR REGISTRO</h1>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Tipo vivienda</label>
+              <select id="disabledSelect" class="form-select" [(ngModel)]="editModalData.IdTipoUbicacion">
+                <option>{{editModalData?.IdTipoUbicacion}}</option>
+                <option value="CASA">CASA</option>
+                <option value="DEPARTAMENTO">DEPARTAMENTO</option>
+                <option value="TERRENO">TERRENO</option>
+              </select>
+              <!-- <input type="email" [(ngModel)]="editModalData." class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Fraccionamiento</label>
+              <select id="disabledSelect" class="form-select" [(ngModel)]="editModalData.IdFraccionamiento">
+                <option>{{editModalData?.IdFraccionamiento}}</option>
+                <option *ngFor="let f of this.inputsData.Fraccionamientos">{{f.Descripcion}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Desarrollador</label>
+              <select id="disabledSelect" class="form-select" [(ngModel)]="editModalData.IdDesarrollador">
+                <option>{{editModalData?.IdDesarrollador}}</option>
+                <option *ngFor="let d of this.inputsData.Desarrolladores">{{d.Descripcion}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Nivel vivienda</label>
+              <select id="disabledSelect" class="form-select" [(ngModel)]="editModalData.IdNivel">
+                <option>{{editModalData?.IdNivel}}</option>
+                <option>BAJO</option>
+                <option>MEDIO</option>
+                <option>MEDIO RESIDENCIAL</option>
+                <option>RESIDENCIAL</option>
+                <option>RESIDENCIAL PLUS</option>
+              </select>
+            </div>
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Zona</label>
+              <select id="disabledSelect" class="form-select" [(ngModel)]="editModalData.IdZona">
+                <option>{{editModalData?.IdZona}}</option>
+                <option *ngFor="let z of this.inputsData.Zonas">{{z.Descripcion}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Dirección</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.Ubicacion" [(ngModel)]="editModalData.Direccion">
+            </div>
+            <div class="col-4">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Modelo</label>
+              <select id="disabledSelect" class="form-select" [(ngModel)]="editModalData.IdPrototipo">
+                <option>{{editModalData?.IdPrototipo}}</option>
+                <option *ngFor="let m of this.inputsData.Modelos">{{m.Descripcion}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">M2</label>
+              <div class="input-group">
+                <span class="input-group-text">T:</span>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.m2CT?.T" [(ngModel)]="editModalData.m2CT.T" [attr.disabled]="sendingLoad ? true : null">
+                <span class="input-group-text">C:</span>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.m2CT?.C" [(ngModel)]="editModalData.m2CT.C" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null">
+              </div>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Habitaciones</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.Habitaciones" [(ngModel)]="editModalData.Habitaciones" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null">
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Baños</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.Banos" [(ngModel)]="editModalData.Banos" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null">
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Parking</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.Parking" [(ngModel)]="editModalData.Estacionamiento" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null">
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Terraza</label>
+              <div class="form-check form-switch"><input class="form-check-input lg" type="checkbox" role="switch" id="flexSwitchCheckDefault" [value]="editModalData?.Terraza" [(ngModel)]="editModalData.Terraza" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Precio</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" [value]="editModalData?.Precio" [(ngModel)]="editModalData.Precio">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Apartado</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" [value]="editModalData?.Apartado" [(ngModel)]="editModalData.Apartado">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Enganche</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" maxlength="3" max="100" aria-label="Amount (to the nearest dollar)" [value]="editModalData?.Enganche" [(ngModel)]="editModalData.Enganche">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Descuento</label>
+              <div class="input-group mb-3">
+                <input type="number" class="form-control" maxlength="3" max="100" aria-label="Amount (to the nearest dollar)" [value]="editModalData?.Descuento" [(ngModel)]="editModalData.Descuento">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+            <!-- <div class="col">
+              <label for="exampleInputEmail1" class="form-label">Tiempo de entrega</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [value]="editModalData?.TiempoEntrega" [(ngModel)]="editModalData.TiempoEntrega">
+            </div> -->
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-2"><label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Tiempo entrega</label></div>
+            <div class="col-2">
+              <select id="yearSelect" [(ngModel)]="monthsYear" class="form-select" [attr.disabled]="sendingLoad ? true : null">
+                <option *ngFor="let year of monthsFeatures.yearsArray">{{year}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row m-4 align-items-center justify-content-around">
+            <div *ngFor="let m of monthsFeatures.monthsArray ; index as index" class="col-1 btn fw-semibold text-secustm fs-small square" (click)="selectMonth(index, m, editModalData)" [ngClass]="{'mth-select': m.selected === true, 'mth-range': m.rango === true && !m.selected}" [attr.disabled]="sendingLoad ? true : null">{{m.mes}}</div>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <!-- <button class="btn btn-primary" type="button" (click)="setInmediatTime(editModalData)" [attr.disabled]="sendingLoad ? true : null">INMEDIATA</button> -->
+            <!-- Se agregó este buttton-checkbox nuevo -->
+            <input type="checkbox" class="btn-check" id="btn-check-outlined" (click)="setInmediatTime(editModalData)" [attr.disabled]="sendingLoad ? true : null" autocomplete="off" [attr.checked]="editModalData?.TiempoEntrega == 'INMEDIATA'? true: null" >
+            <label class="btn btn-outline-primary fw-semibold" for="btn-check-outlined">INMEDIATA</label><br>
+          </div>
+
+          <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Acabados especiales</label>
+          <div class="d-flex">
+            <input type="text" class="form-control me-3" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="appenAcabEs" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null "> <button class="btn btn-primary" type="submit" (click)="addAcabEsp(editModalData?.AcabadosEspeciales)" [attr.disabled]="sendingLoad ? true : editModalData.IdTipoUbicacion == 'TERRENO'? true : null"><img class="mb-1" src="../../assets/sources/icons/🦆 icon-add.svg" width="18px" height="18px"></button>
+          </div>
+          <div class="d-flex flex-wrap p-4">
+            <span class="badge rounded bg-primary ps-2 pe-1 text-light mx-1 mb-1" *ngFor="let f of editModalData?.AcabadosEspeciales; index as index">{{f}} <button class="btn-delete" (click)="removeAcabEsp(editModalData?.AcabadosEspeciales, index)"><img src="../../assets/sources/icons/🦆 icon-close-white.svg" width="10px" height="10px" alt=""></button></span>
+          </div>
+
+          <hr>
+
+          <!-- ACORDION -->
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button fw-bolder text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  EDITAR FINANCIAMIENTOS
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Financiamientos</label> <small class="text-secondary"><strong> · {{editModalData.IdFraccionamiento}}</strong></small>
+                  <div class="d-flex">
+                    <input type="text" class="form-control me-3" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="appenFinanc"> <button class="btn btn-primary" type="submit" (click)="addFinanc(editModalData?.Financiamientos)"><img src="../../assets/sources/icons/🦆 icon-add.svg" width="18px" height="18px"></button>
+                  </div>
+                  <div class="d-flex flex-wrap p-4">
+                    <span class="badge rounded bg-primary ps-2 pe-1 pb-1 text-light mx-1 mb-1" *ngFor="let f of editModalData?.Financiamientos; index as index">{{f}} <button class="btn-delete" (click)="removeFinanc(editModalData?.Financiamientos, index)"><img src="../../assets/sources/icons/🦆 icon-close-white.svg" width="10px" height="10px" alt=""></button></span>
+                  </div>                
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button fw-bolder collapsed text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  EDITAR AMENIDADES
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <label for="exampleInputEmail1" class="form-label text-secondary fw-semibold">Amenidades</label> <small class="text-secondary"><strong> · {{editModalData.IdFraccionamiento}}</strong></small>
+                  <div class="d-flex">
+                    <input type="text" class="form-control me-3" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="appenAmenid"> <button class="btn btn-primary" type="submit" (click)="addAmenid(editModalData?.Amenidades)"> <img src="../../assets/sources/icons/🦆 icon-add.svg" width="18px" height="18px"></button>
+                  </div>
+                  <div class="d-flex flex-wrap p-4">
+                    <span class="badge rounded bg-primary ps-2 pe-1 pb-1 text-light mx-1 mb-1" *ngFor="let a of editModalData?.Amenidades; index as index">{{a}} <button class="btn-delete" (click)="removeAmenid(editModalData?.Amenidades, index)"><img src="../../assets/sources/icons/🦆 icon-close-white.svg" width="10px" height="10px" alt=""></button></span>
+                  </div>
+                  <!-- <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow. -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ENDDDDDDDDDDDDDDDDDDDDD -->
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cleanMonths()">Cancelar</button>
+        <!-- <button type="button" class="btn btn-primary" (click)="putUbicacion()">Save changes</button> -->
+        <button type="submit" class="btn btn-primary" (click)="putUbicacion()" [attr.disabled]="sendingLoad ? true : null">
+          <span *ngIf="!sendingLoad">Guardar</span>
+
+          <span *ngIf="sendingLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="sendingLoad"> Subiendo...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Toast success -->
+<div @disappearFade class="card floating m-3" style="width: 24rem;" *ngIf="myToast.toastCalled" [ngClass]="{'toast-success': myToast.toastType == 'success', 'toast-warning' : myToast.toastType == 'warning', 'toast-error' : myToast.toastType == 'error' }">
+  <div class="card-body p-2">
+    <button class="btn-delete me-1 mt-1" style="position: absolute; right: 0; top: 0;" (click)="closeToast()"></button>
+    <img *ngIf="myToast.toastType == 'success'" src="../../assets/sources/icons/🦆 icon-success.svg" alt="" class="me-2">
+    <img *ngIf="myToast.toastType == 'warning'" src="../../assets/sources/icons/🦆 icon-warning.svg" alt="" class="me-2">
+    <img *ngIf="myToast.toastType == 'error'" src="../../assets/sources/icons/🦆 icon-error.svg" alt="" class="me-2">
+    <strong class="me-auto">{{myToast.toastTitle}}</strong><br>
+    <small class="card-text text-secustm">{{myToast.toastMessage}}</small>
+  </div>
+</div>
+
+<!-- Modal Hide Ubic -->
+<div class="modal fade" id="hideModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Esconder vivienda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>¿Quieres continuar?</h5>
+        <p>Se esconderá esta vivienda al público</p>
+        <p>Modelo: <strong>{{hideModelData.IdPrototipo}}</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="esconderUbicacion(hideModelData)" [attr.disabled]="sendingLoad ? true : null">
+          <span *ngIf="!sendingLoad">Esconder</span>
+
+          <span *ngIf="sendingLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="sendingLoad"> Guardando...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Show Ubic -->
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Mostrar vivienda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>¿Quieres continuar?</h5>
+        <p>Se mostrará esta vivienda para poder compararse al público</p>
+        <p>Modelo: <strong>{{showModelData.IdPrototipo}}</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="mostrarUbicacion(showModelData)" [attr.disabled]="sendingLoad ? true : null">
+          <span *ngIf="!sendingLoad">Mostrar</span>
+
+          <span *ngIf="sendingLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="sendingLoad"> Guardando...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Utilietes -->
+<div class="modal fade" id="modalUtilietes" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-block">
+        <button style="position: absolute; right: 20px; top: 20px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h2 class="modal-title fs-5" id="exampleModalLabel">Registrar {{modalUtilities.title}}</h2>
+        <h5 class="text-secondary mt-1" style="font-size: 16px;">Complete los campos requeridos para dar de alta</h5>
+      </div>
+      <div class="modal-body">
+        <div class="p-4">
+          <div class="mb-3">
+            <label for="exampleDropdownFormEmail2" class="form-label fw-semibold">Descripción</label>
+            <input style="text-transform: uppercase" type="text" class="form-control" id="exampleInput" aria-describedby="emailHelp" placeholder="Escribe título-nombre" [(ngModel)]="this.modalUtilities.descripcion">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="!modalUtilities.openInsideM">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" *ngIf="modalUtilities.openInsideM">            
+          <img class="mb-1" src = "../../assets/sources/icons/🦆 icon-back-outline.svg" width="18" height="18" alt="Mi SVG feliz"/>
+          Volver
+        </button>
+        <!-- <button type="button" class="btn btn-primary" (click)="postUtilitie()">Subir</button> -->
+
+        <button type="submit" class="btn btn-primary" (click)="postUtilitie()" [attr.disabled]="sendingLoad ? true : null" [attr.disabled]="modalUtilities.descripcion == '' ? true : null">
+          <span *ngIf="!sendingLoad">Guardar</span>
+
+          <span *ngIf="sendingLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="sendingLoad"> Subiendo...</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
