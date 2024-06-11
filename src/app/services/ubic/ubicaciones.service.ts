@@ -6,8 +6,8 @@ import { HttpClient } from "@angular/common/http";
 })
 export class UbicacionesService {
 
-  api = 'http://localhost/CasCom';
-  // api = 'https://emporium-ti-backend.herokuapp.com/CasCom'
+  // api = 'http://localhost/CasCom';
+  api = 'https://emporium-ti-backend.herokuapp.com/CasCom'
 
   constructor(
     public http: HttpClient,
